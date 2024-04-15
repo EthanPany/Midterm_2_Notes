@@ -1,0 +1,3114 @@
+\documentclass[oneside]{book}
+
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage{thmtools}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{geometry}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{framed}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{environ}
+\usepackage{tcolorbox}
+\tcbuselibrary{theorems,skins,breakable}
+
+\setstretch{1.2}
+\geometry{
+    textheight=9in,
+    textwidth=5.5in,
+    top=1in,
+    headheight=12pt,
+    headsep=25pt,
+    footskip=30pt
+}
+
+% Variables
+\def\notetitle{MATH 165\\Linear Algebra \& Diff. Equation\\Midterm II \\Notes with Examples}
+\def\noteauthor{
+    \textbf{Professor Kalyani Madhu} \\ 
+    % {\LaTeX} 
+    by Ethan\\
+    University of Rochester}
+\def\notedate{Spring 2024}
+
+% The theorem system and user-defined commands
+\input{theorems.tex}
+\input{commands.tex}
+
+% ------------------------------------------------------------------------------
+
+\begin{document}
+\title{\textbf{
+    \LARGE{\notetitle} \vspace*{10\baselineskip}}
+    }
+\author{\noteauthor}
+\date{\notedate}
+
+\maketitle
+\newpage
+
+\tableofcontents
+\newpage
+
+% ------------------------------------------------------------------------------
+
+
+\chapter{Determinants}
+\section{Lecture 9: Def. of Determinants \& it's calculation}
+
+\rmk{
+    This lecture covers: 
+    % \\ - 3.1 The Definition of the Determinant\\- 3.3 Cofactor Expansions (partly)
+    \begin{itemize}
+        \item 3.1 The Definition of the Determinant
+        \item 3.3 Cofactor Expansions (partly)
+    \end{itemize}
+}
+
+\subsection{What is Determinanrts}
+
+\defn{Determinants}{
+    The \textbf{determinants} of a square matrix $A$, denoted $\det{(A)}$, is a number associated with the matrix $A$ that is \textit{designed} to carry information about the invertibility (among other things) of the matrix $A$. We also use the notation $|A|$ to denote the determinant of $A$. 
+}
+The way we calculate determinants is derived from the fact of changing the matrix into RREF (Reduce-Row-Echelon-Form) and seeing if the matrix is invertible. If the matrix is invertible, then the determinant is not zero. If the matrix is not invertible, then the determinant is zero. The way we calculate it is based on observation. (P.196)
+
+\subsection{How to calculate Determinants}
+\paragraph{1 by 1 matrix}
+
+The determinant of a $1 \times 1$ matrix $[a11]$ is $a_{11}$. 
+
+\ex{
+    \\
+    \textbf{Calculate the determinant of the matrix $A = [3]$. }
+    \[
+        \begin{vmatrix}
+            3
+        \end{vmatrix} = 3
+    \]
+    \textbf{What is the rank of the matrix $A$? } \\The rank of the matrix $A$ is 1.
+
+}
+\\\\
+\ex{
+    \\
+    \textbf{Calculate the determinant of the matrix $A = [0]$. }\\
+    \[
+        \begin{vmatrix}
+            0
+        \end{vmatrix} = 0
+    \]
+    \textbf{What is the rank of the matrix $A$? } \\
+    The rank of the matrix $A$ is 0. (Since the determinant is 0, the matrix is not invertible.)
+
+}
+
+
+\paragraph{2 by 2 matrix} 
+
+The determinant of a $2 \times 2$ matrix $A = \begin{bmatrix} a & b \\ c & d \end{bmatrix}$ is given by $ad=bc$. 
+\[
+    \begin{vmatrix}
+        a & b \\
+        c & d
+    \end{vmatrix} 
+    = ad - bc
+\]
+
+The way we calculate it is by taking the product of the diagonal elements and subtracting the product of the off-diagonal elements.
+
+
+\ex{
+    \textbf{Calculate the determinant of the matrix $A = \begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix}$. }
+    \[
+        \begin{vmatrix}
+            1 & 2 \\
+            3 & 4
+        \end{vmatrix} = 1 \cdot 4 - 2 \cdot 3 = 4 - 6 = -2
+    \]
+    \textbf{What is the rank of the matrix $A$? } \\The rank of the matrix $A$ is 2.\\
+    \textbf{Is the matrix invertible? } \\Yes, the matrix is invertible, since $-2 \neq 0$.
+}
+
+\ex{
+    \textbf{Calculate the determinant of the matrix $A = \begin{bmatrix} 2 & 3 \\ 4 & 6 \end{bmatrix}$. }
+    \[
+        \begin{vmatrix}
+            2 & 3 \\
+            4 & 6
+        \end{vmatrix} = 2 \cdot 6 - 3 \cdot 4 = 12 - 12 = 0
+    \]
+    \textbf{What is the rank of the matrix $A$? } \\The rank of the matrix $A$ is 1.\\
+    \textbf{Is the matrix invertible? } \\No, the matrix is not invertible, since $0 = 0$.
+}
+
+
+
+\paragraph{3 by 3 matrix}
+The determinant of a $ 3 \times 3 $ matrixhas a similar 'diagonals'-type definition:
+\[
+    |A|= \begin{vmatrix}
+        a & b & c \\
+        d & e & f \\
+        g & h & i
+    \end{vmatrix}
+    = aei + bfg + cdh - ceg - bdi - afh
+\]
+
+
+We can use a clever trick with arrows by repeating the first two columns to calculate the determinant of a $3 \times 3$ matrix.
+
+
+
+\begin{figure}
+    \begin{center}
+        \includegraphics[scale=0.1]{img/Snipaste_2024-03-27_13-52-06.png}
+        \caption{Determinant of a $3 \times 3$ matrix}
+    \end{center}
+\end{figure}
+
+
+
+
+
+\ex{
+    \textbf{Calculate the determinant of the matrix $A = \begin{bmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \\ 7 & 8 & 9 \end{bmatrix}$. }
+    \[
+        \begin{vmatrix}
+            1 & 2 & 3 \\
+            4 & 5 & 6 \\
+            7 & 8 & 9
+        \end{vmatrix} = 1 \cdot 5 \cdot 9 + 2 \cdot 6 \cdot 7 + 3 \cdot 4 \cdot 8 - 3 \cdot 5 \cdot 7 - 2 \cdot 4 \cdot 9 - 1 \cdot 6 \cdot 8 = 0
+    \]
+    \textbf{What is the rank of the matrix $A$? } \\The rank of the matrix $A$ is 2.\\
+    \textbf{Is the matrix invertible? } \\No, the matrix is not invertible, since $0 = 0$.
+
+}
+
+
+\rmkb{
+    If the dimension of a matrix is greater than $3 \times 3$, we won’t be able to find the determinant in one step, as the sub-matrices will have dimension at least $3 \times 3$.
+}
+
+
+\paragraph{Larger matrix}
+
+Another more common way to find the determinant of a $3 \times 3$ matrix is to use the \textbf{cofactor expansion} method. The cofactor expansion method is a way to calculate the determinant of a matrix by breaking it down into smaller matrices. This can also apply to \textbf{larger matrices}.
+\[
+    \begin{vmatrix}
+        a & b & c \\
+        d & e & f \\
+        g & h & i
+    \end{vmatrix} 
+    = a \begin{vmatrix}
+        e & f \\
+        h & i
+    \end{vmatrix} - b \begin{vmatrix}
+        d & f \\
+        g & i
+    \end{vmatrix} + c \begin{vmatrix}
+        d & e \\
+        g & h
+    \end{vmatrix}
+\]
+
+\thmr{Cofactor Expansion}{}{
+    We may expand along row $i$:
+
+    \[
+        \det(A) = a_{i1}C_{i1} + a_{i2}C_{i2} + \cdots + a_{in}C_{in} = \sum_{j=1}^{n} a_{ij}C_{ij}
+    \]
+
+
+    We may expand along column $j$:
+
+    \[
+        \det(A) = a_{1j}C_{1j} + a_{2j}C_{2j} + \cdots + a_{nj}C_{nj} = \sum_{i=1}^{n} a_{ij}C_{ij}
+    \]
+
+}
+
+
+The way you do so is to choose a row or a column (typically, a row or column with the most zeros) and expand the determinant along that row or column. If the matrix after expansion is still not a $2 \times 2$ matrix, you can expand it again.
+
+
+
+\ex{\\
+    \textbf{Calculate the determinant of the matrix $A = \begin{bmatrix} 1 & 2 & 3 & 4 \\ 5 & 6 & 7 & 8 \\ 9 & 10 & 11 & 12 \\ 13 & 14 & 15 & 16 \end{bmatrix}$. }\\\\\\
+    Let's choose the first row to expand the determinant.
+    \[
+        \begin{vmatrix}
+            1 & 2 & 3 & 4 \\
+            5 & 6 & 7 & 8 \\
+            9 & 10 & 11 & 12 \\
+            13 & 14 & 15 & 16
+        \end{vmatrix} 
+        = 1 \begin{vmatrix}
+            6 & 7 & 8 \\
+            10 & 11 & 12 \\
+            14 & 15 & 16
+        \end{vmatrix} - 2 \begin{vmatrix}
+            5 & 7 & 8 \\
+            9 & 11 & 12 \\
+            13 & 15 & 16
+        \end{vmatrix} + 3 \begin{vmatrix}
+            5 & 6 & 8 \\
+            9 & 10 & 12 \\
+            13 & 14 & 16
+        \end{vmatrix} - 4 \begin{vmatrix}
+            5 & 6 & 7 \\
+            9 & 10 & 11 \\
+            13 & 14 & 15
+        \end{vmatrix}
+    \]
+    % \\\\\\\\\\\\
+    \[
+        = 1 \times 6 \begin{vmatrix}
+            11 & 12 \\
+            15 & 16
+        \end{vmatrix} - 2 \times 7 \begin{vmatrix}
+            9 & 12 \\
+            13 & 16
+        \end{vmatrix} + 3 \times 8 \begin{vmatrix}
+            9 & 11 \\
+            13 & 15
+        \end{vmatrix} - 4 \times 5 \begin{vmatrix}
+            10 & 11 \\
+            14 & 15
+        \end{vmatrix} \text{...} = 0
+    \]
+    \\
+    \textbf{What is the rank of the matrix $A$? } \\The rank of the matrix $A$ is 2.\\\\
+    \textbf{Is the matrix invertible? } \\No, the matrix is not invertible, since $0 = 0$.\\
+}
+
+\subsection{Inverse of 2 by 2 matrix}
+
+\prop{
+    Let $A = \begin{bmatrix} a & b \\ c & d \end{bmatrix}$ be a $2 \times 2$ matrix. If $\det(A) \neq 0$, then the inverse of $A$ is given by
+    \[
+        A^{-1} = \frac{1}{\det(A)} \begin{bmatrix} d & -b \\ -c & a \end{bmatrix}
+    \]
+
+}
+\pf{
+    Let $A = \begin{bmatrix} a & b \\ c & d \end{bmatrix}$ be a $2 \times 2$ matrix. If $\det(A) \neq 0$, then
+    \[
+        A = \begin{pmatrix}
+        a & b \\
+        c & d
+    \end{pmatrix}
+    \]
+    \[
+        A^{-1} = \frac{1}{\det(A)} \begin{bmatrix} d & -b \\ -c & a \end{bmatrix}
+    \]
+    \[
+        = \frac{1}{ad - bc} \begin{bmatrix} d & -b \\ -c & a \end{bmatrix}
+    \]
+    \[
+        A \times A^{-1} = \begin{pmatrix}
+        a & b \\
+        c & d
+        \end{pmatrix} \times \frac{1}{ad - bc} \begin{pmatrix}
+        d & -b \\
+        -c & a
+        \end{pmatrix}
+    \]
+    \[
+        \frac{1}{ad - bc}(a \times d + b \times (-c)) = \frac{ad - bc}{ad - bc} = 1
+    \]
+    \[
+        \frac{1}{ad - bc}(a \times (-b) + b \times a) = \frac{-ab + ab}{ad - bc} = 0
+    \]
+    \[
+        \frac{1}{ad - bc}(c \times d + d \times (-c)) = \frac{cd - cd}{ad - bc} = 0
+    \]
+    \[
+        \frac{1}{ad - bc}(c \times (-b) + d \times a) = \frac{-bc + ad}{ad - bc} = 1
+    \]
+    \[
+        A \times A^{-1}
+        =
+        \begin{pmatrix}
+            1 & 0 \\
+            0 & 1
+        \end{pmatrix}
+        = I
+    \]
+
+    Thus, $A^{-1} = \frac{1}{\det(A)} \begin{bmatrix} d & -b \\ -c & a \end{bmatrix}$.
+
+}
+
+\ex{
+    \textbf{Find the inverse of the matrix $A = \begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix}$. }
+    \[
+        \begin{vmatrix}
+            1 & 2 \\
+            3 & 4
+        \end{vmatrix} = 1 \cdot 4 - 2 \cdot 3 = 4 - 6 = -2
+    \]
+    Since $\det(A) = -2 \neq 0$, we can find the inverse of $A$.
+    \[
+        A^{-1} = \frac{1}{-2} \begin{bmatrix} 4 & -2 \\ -3 & 1 \end{bmatrix} = \begin{bmatrix} -2 & 1 \\ 3/2 & -1/2 \end{bmatrix}
+    \]
+
+}
+
+
+
+
+\subsection{Determinat of matrix functions}
+Given a matrix function $M (t)$, its determinant $\det(M (t))$ can be found using exactly the same techniques as that of a numerical matrix. The only difference is that the determinant is a function of t.
+
+\ex{
+    \textbf{Find} \[
+        \begin{vmatrix}
+            \cos(t) & -\sin(t) \\
+            \cos(t) & \sin(t)
+        \end{vmatrix}
+    \]
+
+    \[
+        \begin{vmatrix}
+            \cos(t) & -\sin(t) \\
+            \cos(t) & \sin(t)
+        \end{vmatrix}
+        = \cos(t) \cdot \sin(t) - (-\sin(t) \cdot \cos(t))
+    \]
+    \[
+        = \sin(t) \cdot \cos(t) + \sin(t) \cdot \cos(t) 
+    \]
+    \[= 2 \sin(t) \cdot \cos(t)\]
+    \[\boxed{= \sin(2t)} \]
+
+}
+
+
+
+
+
+\subsection{Geometry Application: areas and volumes}
+
+\paragraph{Areas}
+Suppose $O$ is the origin in the xy-plane. Let P be a parallelogram with vertices $O = (0, 0)$,$ A = (a_1, a_2)$, $B = (b_1, b_2)$, and $C = (c_1, c_2)$.
+
+\fact{
+    The area of the parallelogram P is given by
+    \[
+        \text{Area}(P) = \begin{vmatrix}
+            \det \begin{pmatrix}
+                \begin{bmatrix}
+                    a_1 & a_2 \\
+                    b_1 & b_2
+                \end{bmatrix}
+            \end{pmatrix}
+        \end{vmatrix}
+    \]
+}
+Since the area is always positive, we take the absolute value of the determinant.
+
+
+\paragraph{Volumes}
+Similarly, the volume of a parallelepiped in $\mathbb{R}^3$ is given by the absolute value of the determinant of the matrix whose rows are the vectors representing the edges of the parallelepiped.
+
+\fact{
+    The volume of the parallelepiped determined by sides $OA$, $OB$, and $OC$ where
+    \[
+        A=(a_1, a_2, a_3), B=(b_1, b_2, b_3), C=(c_1, c_2, c_3)
+    \]
+    is given by
+    \[
+        \text{Volume} = \begin{vmatrix}
+            \det \begin{pmatrix}
+                \begin{bmatrix}
+                    a_1 & a_2 & a_3 \\
+                    b_1 & b_2 & b_3 \\
+                    c_1 & c_2 & c_3
+                \end{bmatrix}
+            \end{pmatrix}
+        \end{vmatrix}
+    \]
+
+}
+
+
+\pf{
+    The area of the parallelogram is 
+    Area = (length of base) $\times$ (perpendicular height).\\
+    This can be written as \\
+    \[
+        \text{Area } = ||a||h = ||a||  ||b|| \space \sin(\theta) ||a \times b||
+    \]
+    Since the k components of a and b are both zero (since the vectors lie in thexy-plane), substitution from Equation yields
+    \[
+        \text{Area} = ||(a_1 b_2 - a_2 b_1)k|| = |a_1 b_2 - a_2 b_1| = |\det(A)|.
+    \]
+}
+
+\begin{figure}
+    \begin{center}
+        \includegraphics[scale=0.2]{img/Snipaste_2024-03-27_22-33-20.png}
+        \caption{Area of a parallelogram}    
+    \end{center}
+\end{figure}
+
+
+
+
+\ex{
+    \textbf{Find the area of the triangle with vertices $(1,1), (2,3), (6,9)$.}
+    \[
+        \begin{vmatrix}
+            1 & 1 \\
+            2 & 3
+        \end{vmatrix}
+        = 1 \cdot 3 - 1 \cdot 2 = 3 - 2 = \boxed{1}
+    \]
+    Note: Since the vector $(6, 9)$ is a multiple of the vector $(2, 3)$ (linearly dependent), we can ignore the third vertex $(6, 9)$.
+
+    
+
+
+
+}
+
+
+\newpage
+% ------------------------------------------------------------------------------
+\section{Lecture 10: Rank, Invertibility, Elementary Row Operations \& additional properties of determinants}
+\rmk{
+    This lecture covers: 
+    \begin{itemize}
+        \item 3.2 Properties of Determinants
+    \end{itemize}
+}
+
+
+
+
+\subsection{Determinants, Rank, Invertibility}
+
+\thmr{}{}{
+    Let $A$ be an upper (or lower) triangular square matrix. Then $\det(A)$ is the product of the diagonal entries of $A$.
+}
+
+\pf{
+    Let $A$ be an upper triangular matrix. Then $A$ can be written as
+    \[
+        A = \begin{bmatrix}
+            a_{11} & a_{12} & \cdots & a_{1n} \\
+            0 & a_{22} & \cdots & a_{2n} \\
+            \vdots & \vdots & \ddots & \vdots \\
+            0 & 0 & \cdots & a_{nn}
+        \end{bmatrix}
+    \]
+    Then
+    \[
+        \det(A) = a_{11} \begin{vmatrix}
+            a_{22} & \cdots & a_{2n} \\
+            \vdots & \ddots & \vdots \\
+            0 & \cdots & a_{nn}
+        \end{vmatrix}
+        = a_{11} \cdot a_{22} \cdots a_{nn}
+    \]
+
+}
+
+Since the possible effect on the determinant of putting a matrix into row-echelon form can only be multiplied by a non-zero constant, for an $n \times n$ matrix $A$, $\det(A) = 0$ if and only if the product of the diagonal entries of a row-echelon form of $A$ is zero. This happens if and only if the rank of $A$ is less than $n$.
+\\
+
+
+\ex{
+    \textbf{Calculate the determinant of the matrix $A = \begin{bmatrix} 1 & 2 & 3 \\ 0 & 4 & 5 \\ 0 & 0 & 6 \end{bmatrix}$. }
+    \[
+        \begin{vmatrix}
+            1 & 2 & 3 \\
+            0 & 4 & 5 \\
+            0 & 0 & 6
+        \end{vmatrix} = 1 \cdot 4 \cdot 6 = 24
+    \]
+    \textbf{What is the rank of the matrix $A$? } \\The rank of the matrix $A$ is 3.\\
+    \textbf{Is the matrix invertible? } \\Yes, the matrix is invertible, since $24 \neq 0$.
+}
+
+The following theorem is based on the previous theorem.
+
+\rmkb{
+    \textbf{Rank} is the number of linearly independent rows (or columns) of a matrix, which is also equal to the number of leading 1's in the RREF of the matrix.
+}
+\thmr{}{Theorem 3.2.1}{
+    Let $A$ be an $n \times n$ matrix. Then $\det(A) \neq 0$ if and only if rank($A$) = $n$.\\
+}
+
+This means that whether or not a square matrix $A$ has a non-zero determinant tells us whether or not $A$ is invertible and whether or not $Ax=0$ has a unique solution.
+
+\ex{
+    \textbf{Let $A = \begin{bmatrix} 5 & 9 & 6 \\ 0 & 3 & 7 \\ 0 & 0 & 8 \end{bmatrix}$. Find the rank of $A$. } \\
+    \[ 
+        \det(A) = 5 \dots 3 \dots 8 = 120 \neq 0
+    \]
+    Since $\det(A) \neq 0$, $A$ is a $3 \times 3$ matrix,the rank of $A$ is 3.\\
+}   
+
+
+
+
+Since it’s easy to find the determinant of row-echelon matrices, and also as a step to proving Thm. 3.2.5, we are interested in the effect of EROs on determinants.
+
+
+\subsection{Elementary Row Operations}
+
+
+\thmr{}{}{
+    \textbf{Multiplying} a row of a matrix by a scalar $k$ multiplies the determinant of the matrix by $k$.
+}
+
+Let $A  = \begin{bmatrix}
+    a & b & c\\
+    d & e & f\\
+    g & h & i
+\end{bmatrix}$ and $B = \begin{bmatrix}
+    a & b & c\\
+    kd & ke & kf\\
+    g & h & i
+\end{bmatrix}$. \\
+Then 
+\\
+\[
+    \mid A \mid = -d \begin{vmatrix}
+        b & c\\
+        h & i
+    \end{vmatrix} + e \begin{vmatrix}
+        a & c\\
+        g & i
+    \end{vmatrix} - f \begin{vmatrix}
+        a & b\\
+        g & h
+    \end{vmatrix}
+\]
+
+\[
+    \mid B \mid = -kd \begin{vmatrix}
+        b & c\\
+        h & i
+    \end{vmatrix} + ke \begin{vmatrix}
+        a & c\\
+        g & i
+    \end{vmatrix} - kf \begin{vmatrix}
+        a & b\\
+        g & h
+    \end{vmatrix}
+\]\\
+
+Therefore, $\mid B \mid = k \mid A \mid$.\\
+\newpage
+\ex{\\
+    Find $\begin{vmatrix}
+        1 & 0 & 1\\
+        2 & 4 & 2\\
+        0 & -1 & -1
+    \end{vmatrix}$
+    by "factoring" a 2 from the second row. 
+    \[
+        \begin{vmatrix}
+            1 & 0 & 1\\
+            2 & 4 & 2\\
+            0 & -1 & -1
+        \end{vmatrix} = 
+        2
+        \begin{vmatrix}
+            1 & 0 & 1\\
+            1 & 2 & 1\\
+            0 & -1 & -1
+        \end{vmatrix}
+    \]
+    \[
+        = 2 \times 
+        \begin{pmatrix}
+            2 \begin{vmatrix}
+                2 & 1\\
+                -1 & -1
+            \end{vmatrix} + 1 \begin{vmatrix}
+                1 & 2\\
+                0 & -1
+            \end{vmatrix}
+        \end{pmatrix}
+    \]
+    \[
+        = 2 \times (2 \cdot (-2 - (-1)) + 1 \cdot (-1 - 0)) = 2 \times (-2) = \boxed{-4}
+    \]
+
+}
+
+Note: Since we are multiplying the entire matrix by the scalar, we are actually raising each row by the scalar. Therefore, the determinant of the matrix should be raised by the scalar to the power of the number of rows.  
+\cor{
+    If $A$ is a square matrix, then $\det(kA) = k^n \det(A)$.
+}
+
+
+\ex{
+    Suppose $A$ is a $4 \times 4$ metaix and $\det(A) = 3 $. What is the determinant of $2A$?
+    \[
+        \det(2A) = 2^4 \det(A) = 16 \cdot 3 = \boxed{48}
+    \]
+}
+
+
+
+\thmr{}{}{
+    \textbf{Exchanging} two rows of a matrix changes the sign of the determinant of the matrix.
+}
+\ex{\\
+    Find $\begin{vmatrix}
+        0 & b & 0\\
+        a & 0 & 0\\
+        0 & 0 & c
+    \end{vmatrix}$\\
+
+    \[
+        \begin{vmatrix}
+            0 & b & 0\\
+            a & 0 & 0\\
+            0 & 0 & c
+        \end{vmatrix} = - \begin{vmatrix}
+            a & 0 & 0\\
+            0 & b & 0\\
+            0 & 0 & c
+        \end{vmatrix} =\boxed{-abc}
+    \]
+
+}
+
+\thmr{}{}{
+    \textbf{Adding} a multiple of one row to another row \textbf{does not change the determinant} of the matrix.
+}
+
+
+\ex{\\
+    Find $\begin{vmatrix}
+        a+2c & b+2d\\
+        c & d
+    \end{vmatrix}$
+    \[
+        \begin{vmatrix}
+            a+2c & b+2d\\
+            c & d
+        \end{vmatrix} 
+        \overset{R_1-2R_2}{\longrightarrow} \begin{vmatrix}
+            a & b\\
+            c & d
+        \end{vmatrix}
+        = \boxed{ad - bc}
+    \]
+    
+}
+
+
+
+\subsection{Additional Properties of Determinants}
+\prop{
+    If 
+    $C = \begin{bmatrix}
+        r_1\\
+        \vdots\\
+        r_{i-1}\\
+        a + b \\
+        r_{i+1}\\
+        \vdots\\
+        r_n
+    \end{bmatrix}$
+    , and 
+    $A = \begin{bmatrix}
+        r_1\\
+        \vdots\\
+        r_{i-1}\\
+        a \\
+        r_{i+1}\\
+        \vdots\\
+        r_n
+    \end{bmatrix}$
+    , and
+    $B = \begin{bmatrix}
+        r_1\\
+        \vdots\\
+        r_{i-1}\\
+        b \\
+        r_{i+1}\\
+        \vdots\\
+        r_n
+    \end{bmatrix}$
+    , then 
+    $\det(C) = \det(A) + \det(B)$.
+        
+}
+
+\rmkb{
+    This property does \textbf{NOT} mean $\det(A+B) = \det(A) + \det(B)$
+}
+
+\ex{
+    Let $A = \begin{bmatrix}
+        2 & 4\\
+        -1 & 0
+    \end{bmatrix}, B = \begin{bmatrix}
+        1 & -1\\
+        -1 & 0
+    \end{bmatrix}, C = \begin{bmatrix}
+        3 & 3\\
+        -1 & 0
+    \end{bmatrix}$. Find the determinant of these three matrices and relate them to the property.
+    \[
+        \det(A) = 2 \cdot 0 - 4 \cdot (-1) = \boxed{4}
+    \]
+    \[
+        \det(B) = 1 \cdot 0 - (-1) \cdot (-1) = \boxed{-1}
+    \]
+    \[
+        \det(C) = 3 \cdot 0 - 3 \cdot (-1) = \boxed{3}
+    \]
+    Notice that the second column of these three matrix are the same. Therefore, we can use the property to find the determinant of $C$. 
+    \[
+        \det(C) = \det(A) + \det(B) = 4 + -1 = \boxed{3}
+    \]
+}
+
+\prop{
+    If $A$ is a square matrix, then $\det(A^T) = \det(A)$.
+}
+\pf{
+    Let $A = \begin{bmatrix}
+        a & b\\
+        c & d
+    \end{bmatrix}$. Then $A^T = \begin{bmatrix}
+        a & c\\
+        b & d
+    \end{bmatrix}$. Then $\det(A) = ad - bc$ and $\det(A^T) = ad - bc$. Therefore, $\det(A) = \det(A^T)$.
+}
+
+\prop{
+    The effects on the determinant of elementary row operations still hold when the word row is replaced by the word column. 
+}
+
+\prop{
+    Since the rank of a square $n \times n$ matrix is n if and only if the determinant is non-zero,
+\begin{itemize}
+    \item If a matrix has a row (or column) of zeros, then it has determinant zero.
+    \item If a matrix has two identical rows (or columns), then it has determinant zero.
+    \item If a row (or column) of a matrix is a multiple of another, then it has determinant zero.
+\end{itemize}
+}
+
+
+\prop{
+    Determinet is multiplicative. That is, if $A$ and $B$ are square matrices of the same size, then $\det(AB) = \det(A) \det(B)$.
+}
+To get an idea of why this might be true, suppose A and B are upper-triangular matrices. Then AB is also upper-triangular.
+
+\ex{
+    \textbf{Let $A = \begin{bmatrix}
+        a & b\\
+        0 & c
+    \end{bmatrix}$
+    and $B = \begin{bmatrix}
+        d & e\\
+        0 & f
+    \end{bmatrix}$. Find $\det(AB)$ and $\det(A) \det(B)$.}
+    \[
+        \det(AB) = \det \begin{pmatrix}
+            a \cdot d + b \cdot 0 & a \cdot e + b \cdot f\\
+            0 \cdot d + c \cdot 0 & 0 \cdot e + c \cdot f
+        \end{pmatrix} = \det \begin{pmatrix}
+            ad & ae + bf\\
+            0 & cf
+        \end{pmatrix} = ad \cdot cf = \boxed{acdf}
+    \]
+    \textbf{Why can we extend this to non-upper-triangular matrices?} \\
+    By changing the order of the rows and columns of a matrix, we can put it into an upper-triangular form without changing the determinant. This is because we can do that only by adding a row to another without multiplication and switching rows. Therefore, we can make the $\det$ stay the same.
+
+
+    
+}
+
+\textbf{If the determinant is multiplicative, what can we say about $\det(A^{-1})$?
+}
+
+Let $\det(A) = k$. 
+\[
+    \det(A) \det(A^{-1}) = \det(AA^{-1}) = \det(I) = 1
+\]
+\[
+    \det(A^{-1}) = \frac{1}{k}
+\]
+
+
+
+
+\subsection{More about Determinants}
+
+
+Relationship between the determinant and the invertibility of a matrix:
+\[
+    \det(A) = 0 \iff \text{A is not invertible}
+\]
+\[
+    \det(A) \neq 0 \iff \text{A is invertible}
+\]
+\\
+Relationship between the determinant, rank, and number of solutions of a system of linear equations:
+\[
+    \det(A) = 0 \iff \text{rank}(A) < n \iff \text{system has infinitely many solutions}
+\]
+\[
+    \det(A) \neq 0 \iff \text{rank}(A) = n \iff \text{system has a unique solution}
+\]
+
+\ex{
+    \textbf{Determine all values of $k$ for which the given system has an infinite number of solutions.}
+    \[
+        \begin{matrix}
+            x_1 +2x_2 + kx_3 & = & 0\\
+            2x_1 -kx_2 + x_3 & = & 0\\
+            3x_1 + 6x_2 + x_3 & = & 0
+        \end{matrix}
+    \]
+    Approach 1: Use determinant:\\
+    Let
+    \[
+        \begin{vmatrix}
+            1 & 2 & k\\
+            2 & -k & 1\\
+            3 & 6 & 1
+        \end{vmatrix} = 0
+    \]\\
+    If $\det(A) \neq 0 $ the rank $= n$. Because the system is homogeneous $(Ax=0)$, we don't need to worry about consistency (It is always consistent), therefore, the system has an infinite number of solutions. \\
+    \[
+        \det(A) = 1 \begin{vmatrix}
+            -k & 1\\
+            6 & 1
+        \end{vmatrix} - 2 \begin{vmatrix}
+            2 & 1\\
+            3 & 1
+        \end{vmatrix} + k \begin{vmatrix}
+            2 & -k\\
+            3 & 6
+        \end{vmatrix} = 0
+    \]
+    \[
+        = -k - 6 - 2(2-3) + k(12 +3k)= 0
+    \]
+    \[
+        -k -6 +2 + 12k +3 k^2 = 0
+    \]
+    \[
+        (3k-1)(k+4)=0
+    \]
+    \[
+        k_1 = \boxed{\frac{1}{3}}, \space
+        k_2 = \boxed{-4}
+    \]
+    Approach 2: Use rank:\\
+    \[
+        \begin{bmatrix}
+            1 & 2 & k & 0\\
+            2 & -k & 1 & 0\\
+            3 & 6 & 1 & 0
+        \end{bmatrix}
+    \]
+    Row reduce: \\
+    \[
+        \begin{bmatrix}
+            \begin{array}{ccc|c}
+                1 & 2 & k & 0\\
+                0 & \textbf{-4-k} & 1-2k & 0\\
+                0 & 0 & \textbf{1-3k} & 0
+            \end{array}
+        \end{bmatrix}
+    \]
+    We can notice that if $1-3k = 0$, the matrix will have at most 2 pivots since the determinant is 0. \\
+    if $-4-k = 0$, $k = -4$, we can clear the second row to get the third row. Therefore, the system has an infinite number of solutions:\\ 
+    \[
+        \begin{bmatrix}
+            \begin{array}{ccc|c}
+                1& 2 & k & 0\\
+                0 & \textbf{0}& 1-2k & 0\\
+                0 & 0 & 1-3k & 0
+            \end{array}
+        \end{bmatrix}
+    \]
+    These two approaches give us the same result. 
+
+}
+\\ 
+However, the example matrix above will only work if the matrix is homogeneous.  \\
+
+This is because, in a homogeneous system, the rank $A$ will always equal to rank $A^{\#}$ (the augmented matrix)and the system is always consistent.\\
+
+But if not homogeneous, we need to check the consistency of the system. If the rank of $A$ is equal to the rank of $A^{\#}$, then the system is consistent. If the rank of $A$ is less than the rank of $A^{\#}$, then the system is inconsistent.\\
+\ex{
+    \[
+        \begin{matrix}
+            x_1 +2x_2 + kx_3 & = & 1\\
+            2x_1 -kx_2 + x_3 & = & 0\\
+            3x_1 + 6x_2 + x_3 & = & 1
+        \end{matrix}
+    \]
+    RREF:
+    \[
+        \begin{bmatrix}
+            \begin{array}{ccc|c}
+                1 & 2 & k & 1\\
+                0 & -4-k & 1-2k & -2\\
+                0 & 0 & 1-3k & -2
+            \end{array}
+        \end{bmatrix}
+    \]
+    This means that we want to find a k and plug it into the matrix, and for every Vector times the matrix, we should always get the same result, that is, $[1, -2, -2]$, and we may always find a vector that makes this equation not work, therefore the approach only works when the system is homogeneous.
+    
+}
+
+% ------------------------------------------------------------------------------
+\chapter{Vector Spaces}
+\section{Lecture 11: Vector Spaces, Zero-Vectors, Dimensions, basis, \& Linear Combinations}
+
+\rmk{
+    This lecture covers: 
+    \begin{itemize}
+        \item 4.1 Vectors in $\mathbb{R}^n$
+        \item 4.2 Definition of Vector Spaces
+    \end{itemize}
+}
+
+
+We define a vector v in the xy-plane to be the directed line segment from $(0, 0) $to $(x, y)$. We’ll identify this vector with the point $(x, y)$, and say $v = (x, y)$. The entries $x$, $y$ are called the \textbf{components} of the vector.
+
+\subsection{Closure}
+\begin{itemize}
+    \item If we add $v_1 = (x_1, y_1)$ and $v_2 = (x_2, y_2)$ component-wise, we’ll get $v3 = (x_1 + x_2, y_1 + y_2)$. Note that $v_3$ is another vector in the xy-plane. The property that adds two vectors to get a third vector in the same set of vectors is \textbf{called closure under vector addition}.
+    \item If we multiply any vector by a scalar $\lambda \in R$, we get a new vector $\lambda v = (\lambda x, \lambda y)$ which is again a vector in the xy-plane. This is called \textbf{closure under scalar multiplication}, and $\mathbb{R}$ is called the \textbf{scalar field}.
+\end{itemize}
+\rmkb{
+    Closure means after operations we are still in the same vector space. \\
+    Note that in Math 165 we do not multiply vectors by vectors, only by scalars.
+}
+
+\ex{
+    Let $v = (1, 2)$ and $w = (3, 4)$. Find $2v + 3w$.
+    \[
+        2v + 3w = 2(1, 2) + 3(3, 4) = (2, 4) + (9, 12) = \boxed{(11, 16)}
+    \]
+}
+
+
+\subsection{Vector Space}
+The set$ \{(x, y)\mid x, y \in \mathbb{R}\}$, together with its scalar field and the two operations of vector addition and scalar multiplication, is the \textbf{vector space} $\mathbb{R}^2$ over $\mathbb{R}$.
+
+\rmkb{The definition of Vector Space will be given later.}
+
+\ex{
+    $\mathbb{R}^2$ is a vector space over $\mathbb{R}$.
+}
+
+\paragraph{Summary}
+A set of vectors together with its two operations, addition and scalar multiplication, and its scalar field $F$ is called a vector space over $F$. When we define other vector spaces, we will always define the operations of vector addition and scalar multiplication. We will always state what the scalar field is. (In this class, it will be $\mathbb{R}$ or $\mathbb{C}$.) The vector space must always be closed under vector addition and scalar multiplication. 
+
+\subsection{Zero-Vectors \& Additive Inverse}
+\ex{
+    Let $v = (a,b)$. Find another vector \textbf{x} such that $\textbf{v + x =v}$\\
+    \[\boxed{x = (0, 0)}\]
+}
+\defn{Zero Vector}{
+    \textbf{Zero vector} or a \textbf{null vector} is defined as a vector in space that has a magnitude equal to 0 and an undefined direction. \\
+
+}
+\rmkb{
+    We denote the zero vector with a boldface \textbf{0}, or if we can't do boldface, with an arrow $\vec{0}$. It behaves essentially like the number 0. If we add 0 to any vector \textbf{a}, we get the vector \textbf{a} back again unchanged.
+
+}
+
+\ex{
+    Let $v = (a,b)$. Find another vector \textbf{x} such that $\textbf{v + x = 0}$\\
+    \[\boxed{x = (-a, -b)}\]
+}
+
+\defn{Additive Inverse}{
+    The \textbf{additive inverse} of a vector $v$ is the vector $-v$ such that $v + (-v) = 0$. 
+}
+\ex{
+    Let $v = (a,b)$. Find the additive inverse of $v$.\\
+    \[\boxed{-v = (-a, -b)}\]
+}
+
+\rmkb{
+    Every vector in any vector space has an additive inverse. The additive inverse of a vector $v$ is denoted by $-v$.
+}
+
+
+\subsection{Linear Combinations}
+\defn{Linear Combination}{
+    A \textbf{linear combination} of vectors $v_1, v_2, \cdots, v_n$ is a vector of the form $c_1v_1 + c_2v_2 + \cdots + c_nv_n$, where $c_1, c_2, \cdots, c_n$ are scalars. \\
+    In other words, a sum of scalar multiples of vectors is called a linear combination of the vectors.
+}
+\ex{
+    Let $v = (1, 2)$ and $w = (3, 4)$. Find the linear combination $2v + 3w$.\\
+    \[
+        2v + 3w = 2(1, 2) + 3(3, 4) = (2, 4) + (9, 12) = \boxed{(11, 16)}
+    \]
+
+}
+
+\subsection{Basis}
+Since we can write any vector in R2 as a linear combination of $e_1$, $e_2$, we give the set $\{e1, e2\}$ a name–it’s called a \textbf{basis}. 
+
+\defn{Basis}{
+    A \textbf{basis} is a set of vectors such that any vector in the vector space can be written as a linear combination of those vectors, but they can’t be written as linear combinations of each other. 
+}
+This is a crucial idea in the theory of vector spaces.
+\rmkb{
+    There are infinitely many possible sets in $\mathbb{R}^2$ that will work as a basis.
+}
+\fact{
+    All possible bases for R2 contain exactly two vectors. We then say that R2 has \textbf{dimension} 2. This matches our natural, unmathematical notion of dimension. 
+}
+
+\subsection{Dimension}
+\defn{Dimension}{
+    The \textbf{dimension} of a vector space is the number of vectors in a basis for the vector space. 
+}
+\ex{
+    The dimension of $\mathbb{R}^2$ is 2. 
+
+}
+
+
+\subsection{Vector Subspace}
+\defn{Vector Subspace}{
+    A \textbf{vector subspace} of a vector space is a subset of the vector space that is itself a vector space. 
+
+}
+\ex{
+    x-axis is a vector subspace of $\mathbb{R}^2$.
+}
+
+\subsection{Vector Space Axioms}
+\defn{Vector Space}{
+    A \textbf{vector space} is a (non-empty) set $V$ of elements called \textbf{vectors}, together with two operations, called \textbf{addition} and \textbf{scalar multiplication}, that satisfy the following axioms:
+    \begin{enumerate}
+        \item \textbf{Closure under addition:} For all $u, v \in V$, the sum $u + v$ is in $V$.
+        \item \textbf{Associativity of addition:} For all $u, v, w \in V$, $(u + v) + w = u + (v + w)$.
+        \item \textbf{Commutativity of addition:} For all $u, v \in V$, $u + v = v + u$.
+        \item \textbf{Existence of an additive identity:} There exists an element in $V$, denoted by 0, such that for all $v \in V$, $v + 0 = v$.
+        \item \textbf{Existence of an additive inverse:} For every $v \in V$, there exists an element in $V$, denoted by $-v$, such that $v + (-v) = 0$.
+        \item \textbf{Closure under scalar multiplication:} For all $v \in V$ and all scalars $c$, the vector $cv$ is in $V$.
+        \item \textbf{Distributivity of scalar multiplication with respect to vector addition:} For all $c$ and $d$ in $F$ and all $v$ in $V$, $c(v + w) = cv + cw$.
+        \item \textbf{Distributivity of scalar multiplication with respect to field addition:} For all $c$ in $F$ and all $v$ in $V$, $(c + d)v = cv + dv$.
+        \item \textbf{Associativity of scalar multiplication:} For all $c, d$ in $F$ and all $v$ in $V$, $c(dv) = (cd)v$.
+        \item \textbf{Unit Property:} For all $v$ in $V$, $1v = v$.
+    \end{enumerate}
+}
+
+\subsubsection{Polynomials:}
+\ex{
+    $P_n$, the set of polynomials of degree at most n.\\
+    \textbf{Define vector addition:}
+    \[
+        (a_0 + a_1x + \cdots + a_nx^n) + (b_0 + b_1x + \cdots + b_nx^n) = (a_0 + b_0) + (a_1 + b_1)x + \cdots + (a_n + b_n)x^n
+    \]
+    \textbf{Define scalar multiplication:}
+    \[
+        c(a_0 + a_1x + \cdots + a_nx^n) = ca_0 + ca_1x + \cdots + ca_nx^n
+    \]
+    \textbf{Is the set of polynomials of degree exactly n a vector space?} \\
+    No, because it does not satisfy the closure under addition axiom.\\
+    Counterexample: $x^n + (-x^n) = 0$ which is a zero polynomial with a degree undefined which is not in the vector space.\\\\
+    \textbf{Zero vector} in polynomial vector space is the zero polynomial:
+    \[
+        0 = 0 + 0x + \cdots + 0x^n
+    \]
+}
+\subsubsection{Matrix:}
+\ex{
+    $M_{m \times n}(\mathbb{R})$, the set of all $m \times n$ matrices.\\
+    \textbf{Define vector addition:}
+    \[
+        \begin{bmatrix}
+            a_{11} & a_{12} & \cdots & a_{1n}\\
+            a_{21} & a_{22} & \cdots & a_{2n}\\
+            \vdots & \vdots & \ddots & \vdots\\
+            a_{m1} & a_{m2} & \cdots & a_{mn}
+        \end{bmatrix}
+        +
+        \begin{bmatrix}
+            b_{11} & b_{12} & \cdots & b_{1n}\\
+            b_{21} & b_{22} & \cdots & b_{2n}\\
+            \vdots & \vdots & \ddots & \vdots\\
+            b_{m1} & b_{m2} & \cdots & b_{mn}
+        \end{bmatrix}
+        =
+        \begin{bmatrix}
+            a_{11} + b_{11} & a_{12} + b_{12} & \cdots & a_{1n} + b_{1n}\\
+            a_{21} + b_{21} & a_{22} + b_{22} & \cdots & a_{2n} + b_{2n}\\
+            \vdots & \vdots & \ddots & \vdots\\
+            a_{m1} + b_{m1} & a_{m2} + b_{m2} & \cdots & a_{mn} + b_{mn}
+        \end{bmatrix}
+    \]
+    \textbf{Define scalar multiplication:}
+    \[
+        c \begin{bmatrix}
+            a_{11} & a_{12} & \cdots & a_{1n}\\
+            a_{21} & a_{22} & \cdots & a_{2n}\\
+            \vdots & \vdots & \ddots & \vdots\\
+            a_{m1} & a_{m2} & \cdots & a_{mn}
+        \end{bmatrix}
+        =
+        \begin{bmatrix}
+            ca_{
+                11} & ca_{12} & \cdots & ca_{1n}\\
+            ca_{21} & ca_{22} & \cdots & ca_{2n}\\
+            \vdots & \vdots & \ddots & \vdots\\
+            ca_{m1} & ca_{m2} & \cdots & ca_{mn}
+        \end{bmatrix}
+    \]
+    \textbf{Zero vector} in the matrix-vector space is the zero matrix:
+    \[
+        0 = \begin{bmatrix}
+            0 & 0 & \cdots & 0\\
+            0 & 0 & \cdots & 0\\
+            \vdots & \vdots & \ddots & \vdots\\
+            0 & 0 & \cdots & 0
+        \end{bmatrix}
+    \]
+}
+
+\subsubsection{Function:}
+\ex{
+    $F(\mathbb{R}, \mathbb{R})$, the set of all functions from $\mathbb{R}$ to $\mathbb{R}$.\\
+    \textbf{Define vector addition:}
+    \[
+        (f + g)(x) = f(x) + g(x)
+    \]
+    \textbf{Define scalar multiplication:}
+    \[
+        (cf)(x) = cf(x)
+    \]
+    \textbf{Zero vector} in the function vector space is the zero function:
+    \[
+        0(x) = 0
+    \]
+}
+% ------------------------------------------------------------------------------
+\newpage
+\section{Lecture 12: Vector Subspace \& Proof}
+\rmk{
+    This lecture covers: 
+    \begin{itemize}
+        \item 4.2 Definition of a Vector Space
+        \item 4.3 Subspaces
+    \end{itemize}
+}
+
+\subsection{Some properties for Vector Spaces}
+\thmr{}{}{
+    Once we show V is a vector space, then everything that's true for vector spaces is true for V. The following properties hold for all vector spaces:
+    \begin{enumerate}
+        \item The zero vector is unique.
+        \item The additive inverse of a vector is unique.
+        \item Any scalar times the zero vector is the zero vector. \\   $\lambda \cdot \vec{0} = \vec{0}$ for all $\lambda$.
+        \item The scalar 0 times any vector is the zero vector. \\  $0\vec{v} = \vec{0}$ for all $\vec{v}$.
+        \item The scalar -1 times any vector is the additive inverse of the vector. \\  $-1\vec{v} = -\vec{v}$ for all $\vec{v}$.
+        \item If $k$ is a scalar and $\vec{u} \in V$ such that $k\vec{u} = \vec{0}$, then $k = 0$ or $\vec{u} = \vec{0}$.
+        \item Cancelation law: If $k\vec{u} = k\vec{v}$ and $k \neq 0$, then $\vec{u} = \vec{v}$.
+    \end{enumerate}
+}
+\rmkb{
+    Uniqueness: At least one and at most one. 
+}
+\pf{
+    7, the reason we can cancel:\\
+    Let $\vec{v} + \vec{w} = \vec{v} + \vec{z}$
+    \[
+        - \vec{v} + (\vec{v} + \vec{w}) = - \vec{v} + (\vec{v} + \vec{z})
+    \]
+    \[(-\vec{v}+\vec{v})+\vec{w} = (\vec{-v} + \vec{v} + \vec{z}) \]
+    \[\vec{0} + \vec{w} = \vec{0} + \vec{z} \]
+    \[\boxed{\vec{w} = \vec{z}}\]
+}
+\pf{
+    1, proof that the zero vector is unique
+
+    Suppose $\vec{0_1}$ and $\vec{0_2}$ are both zero vectors. (both have zero properties)
+
+    Let $\vec{v} \in V$
+    \[\vec{v} + \vec{0_1} = \vec{v}\]
+    \[\vec{v} + \vec{0_2} = \vec{v}\]
+    \[\vec{v} + \vec{0_1} = \vec{v} + \vec{0_2}\]
+    \[\boxed{\vec{0_1} = \vec{0_2}}\]
+    Therefore, for each vector space, there is only one zero vector.
+}
+
+\pf{
+    2, proof that the additive inverse of a vector is unique
+    5, $-\vec{v} = (-1)\vec{v}$. \\
+    \[
+        \vec{v} = (-1)\vec{v} = 1\vec{v} + (-1)\vec{v} = (1-1)\vec{v} = 0\vec{v} = \vec{0}
+    \]
+    $\because$ Inverses are unique \\
+    $\therefore \boxed{(-1) \vec{v} = -\vec{v}}$ 
+
+}
+
+
+
+
+
+\subsection{Vector Subspace}
+
+\defn{Vector Subspace}{
+    A non-empty subset $W$ of a vector space $V$ is called a \textbf{subspace} of $V$ if it is itself a vector space. 
+}
+
+\thmr{}{}{
+    A non-empty subset $W$ of a vector space $V$ is called a \textbf{subspace} of $V$ if $W$ is itself a vector space under the operations of addition and scalar multiplication defined in $V$.
+}
+\pf{
+    To show that $W$ is a subspace of $V$, we need to show that $W$ is a vector space. This means that we need to show that $W$ satisfies all the axioms of a vector space. 
+
+    We get the associative, commutative, and distributive for free. 
+    Because $W$ is closed under scalar multiplication, $(1)\vec{v} = \vec{v}$ is in $W$ if $\vec{v}$ is, and we get inverses. Because we have inverses, and we’re closed under vector addition, we get $\vec{0}$.
+
+}
+
+
+
+It is easier to show a set is a Vector Space by showing it is a subspace of a known vector space. Once we prove it is a subspace, we can use all the axioms of vector space.
+
+
+
+In order to do so, you need to show:
+\begin{itemize}
+    \item W is a non-empty set.
+    \item W is closed under addition.
+    \item W is closed under scalar multiplication.
+\end{itemize}
+
+\rmkb{
+    Also, make sure W is a subset of V (which is defined in the definition of the subspace).\\
+    Notice that the textbook sometimes wrote the third line as "contains the zero vector". Here we are actually proving the subset is non-empty, and showing that it contains the zero vector is the way we do so. 
+}
+
+\subsubsection{Sets}
+\ex{
+    \[
+        \mathbb{R}^2 = \{(x,y) | x, y \in \mathbb{R}\}
+    \]
+    \[
+        W = \{
+            (a, 0) | a \in \mathbb{R}
+        \}
+    \]
+    Show that $W$ is a subspace of $\mathbb{R}^2$.\\
+    \textbf{Proof:} \\
+    1. Non-empty: Show the zero vector (that belongs to $\mathbb{R}^2$)\\
+    \[
+        \vec{0} = (0,0)
+    \]
+    $(0,0)$ has the property that the second coordinate is 0. Therefore zero vector is in $W$.\\
+    2. Closure under addition: 
+    Let $W_1 = (a_1, 0)$ and $W_2 = (a_2, 0)$ be in $W$. \\
+    Then $W_1 + W_2 = (a_1 + a_2, 0) \in W$.\\
+    Since $(a_1 + a_2, 0)$ has the property that the second coordinate is 0, it is in $W$.\\
+    So $W$ is closed under addition.\\
+    3. Closure under scalar multiplication: 
+    Let $W_1 = (a, 0)$ be in $W$.\\
+    Then $\lambda W_1 = \lambda(a, 0) = (\lambda a, 0) \in W$.\\
+
+}
+
+
+\ex{
+    $S = \{(x, mx)|x \in \mathbb{R}\}$, $V = \mathbb{R}^2$ is a subspace of $\mathbb{R}^2$. That is, the set of points that constitute a line through the origin is a subspace of $\mathbb{R}^2$. Show also that lines not through the origin are not subspaces.
+
+    \textbf{Proof:} \\
+    1. Non-empty: $(0, 0) \in S$.\\
+    2. Closure under addition: Let $(x_1, mx_1), (x_2, mx_2) \in S$. Then $(x_1, mx_1) + (x_2, mx_2) = (x_1 + x_2, mx_1 + mx_2) \in S$.\\
+    3. Closure under scalar multiplication: Let $(x, mx) \in S$. Then $c(x, mx) = (cx, cmx) \in S$.\\
+}
+
+\subsubsection{Polynomials}
+\ex{
+    If $m < n$, $P_m(\mathbb{R})$ is a subspace of $P_n(\mathbb{R})$.\\
+    This is true because polynomials with a degree less than $m$ are in the set of polynomials with a degree $m$ or less. 
+}
+
+\subsubsection{Matrices}
+
+\ex{
+    Show that the solution set is a subspace of $\mathbb{R}^3$.\\
+    \[
+        \begin{matrix}
+            x_1 + 2x_2 - x_3 & = & 0\\
+            2x_1 + 5x_2 - 4x_3 & = & 0
+        \end{matrix}
+    \]
+
+    \[
+        \begin{bmatrix}
+            \begin{array}{ccc|c}
+                1 & 2 & -1 & 0\\
+                2 & 5 & -4 & 0
+            \end{array}
+        \end{bmatrix}
+    \]
+    RREF:
+    \[
+        \begin{bmatrix}
+            \begin{array}{ccc|c}
+                1 & 2 & -1 & 0\\
+                0 & 1 & -2 & 0
+            \end{array}
+        \end{bmatrix}
+    \]
+    \[
+        \begin{matrix}
+            x_1 + 2x_2 - x_3 & = & 0\\
+            x_2 - 2x_3 & = & 0
+        \end{matrix}
+    \]
+    The solution set: 
+    \[
+        S = \{(-3t, 2t, t) \mid t \in \mathbb{R}\}
+    \]
+    1. Non-empty: $(0, 0, 0) \in S$. (Let $t = 0$)\\
+    2. Closure under addition:
+    \[
+        \text{Let } \begin{matrix}
+            \vec{w_1} & = & t_1 (-3,2,1)\\
+            \vec{w_2} & = & t_2 (-3,2,1)
+        \end{matrix} 
+    \]
+    \[
+        \vec{w_1} + \vec{w_2} = t_1(-3,2,1) + t_2(-3,2,1) = (t_1 + t_2)(-3,2,1) \in S
+    \]
+    3. Closure under scalar multiplication:
+    \[
+        \text{Let } \vec{w} = t(-3,2,1) \in S \text{ and } \lambda \in \mathbb{R}
+    \]
+    \[
+        \lambda \vec{w} = \lambda t(-3,2,1) = (\lambda t)(-3,2,1) \in S
+    \]
+}
+however, if the equation is non-homogeneous, it doesn't work. (Not a Subspace)
+\ex{
+    \[
+        \begin{matrix}
+            x_1 + 2x_2 - x_3 & = & 1\\
+            2x_1 + 5x_2 - 4x_3 & = & 0
+        \end{matrix}
+    \]
+    \[
+        \begin{bmatrix}
+            \begin{array}{ccc|c}
+                1 & 2 & -1 & 1\\
+                2 & 5 & -4 & 0
+            \end{array}
+        \end{bmatrix}
+    \]
+    RREF:
+    \[
+        \begin{bmatrix}
+            \begin{array}{ccc|c}
+                1 & 0 & 3 & 5\\
+                0 & 1 & -2 & -2
+            \end{array}
+        \end{bmatrix}
+    \]
+    \newpage
+    The solution set:
+    \[
+        S = \{(5-3t, -2+t, t) \mid t \in \mathbb{R}\}
+    \]
+    \[
+        S = \{(5,-2,0) + (-3, 2,1)t | t \in \mathbb{R} \}
+    \]
+    \\This is not a subspace because the zero vector is not in S.
+    \[
+        (0,0,0) \neq (5,-2,0) + t(-3,2,1) \in S
+    \]
+    \\It is also not closed under the addition:
+    \[
+        (5-3t_1, -2+t_1, t_1) + (5-3t_2, -2+t_2, t_2) = (10-3(t_1+t_2), -4 + (t_1+t_2), t_1+t_2) \notin S
+    \]
+    \\It is not closed under scalar multiplication either:
+    \[
+        2(5-3t, -2+t, t) = (10-6t, -4+2t, 2t) \notin S
+    \]
+    \\ Therefore it is not a subspace.
+}
+
+\newpage
+\subsection{More on Subspace}
+\subsubsection{matrix}
+\defn{Symmetric Matrices}{
+    A matrix $A$ is \textbf{symmetric} if $A = A^T$.
+
+}
+\ex{
+    Let $S$ be the set of all symmetric $2 \times 2$ matrices. Show that $S$ is a subspace of $M_{2 \times 2}(\mathbb{R})$.\\
+    \textbf{Proof:} \\
+    1. Non-empty: 
+    \[
+        \begin{bmatrix}
+            0 & 0\\
+            0 & 0
+        \end{bmatrix}
+        \text{ in }
+        \begin{bmatrix}
+            a & b\\
+            b & c
+        \end{bmatrix}
+    \]
+    is a symmetric matrix.\\
+    2. Closure under addition: 
+    \[
+        \begin{bmatrix}
+            a_1 & b_1\\
+            b_1 & c_1
+        \end{bmatrix}
+        +
+        \begin{bmatrix}
+            a_2 & b_2\\
+            b_2 & c_2
+        \end{bmatrix}
+        =
+        \begin{bmatrix}
+            a_1 + a_2 & b_1 + b_2\\
+            b_1 + b_2 & c_1 + c_2
+        \end{bmatrix}
+    \]
+    is a symmetric matrix.\\
+    3. Closure under scalar multiplication: 
+    \[
+        c \begin{bmatrix}
+            a & b\\
+            b & c
+        \end{bmatrix}
+        =
+        \begin{bmatrix}
+            ca & cb\\
+            cb & cc
+        \end{bmatrix}
+    \]
+    is a symmetric matrix.\\
+    Therefore, $S$ is a subspace of $M_{2 \times 2}(\mathbb{R})$.
+}
+
+\defn{Skew-Symmetric Matrix}{
+    A matrix $A$ is \textbf{skew-symmetric} if $A = -A^T$.
+}
+Generic form of a skew-symmetric matrix:
+\[
+    \begin{bmatrix}
+        0 & a\\
+        -a & 0
+    \end{bmatrix}
+\]
+
+\subsubsection{Polynomials}
+The set of solutions to the linear homogeneous differential equation \[y'' + a_1(x)y' + a_2(x)y = 0\]is a subspace of $\mathbb{C}^2(\mathbb{R})$.
+\rmkb{
+    $\mathbb{C}^2(\mathbb{R})$ is a vector space of twice differentiable functions.\\
+    Polynomials are infinite differentiable functions.\\
+    An example of non-twice differentiable functions is $|x|$.
+}
+
+\ex{
+    1. Does the zero vector satisfy the equation?\\
+    $ f_0(x) = 0$ is the zero vector in the parent space. It's the function that sends every x to zero. 
+    \[
+        f_0'' + a_1(x)f_0' + a_2(x)f_0 = 0
+    \]
+    2. Closure under addition:
+    \[
+        f_1'' + a_1(x)f_1' + a_2(x)f_1 = 0
+    \]
+    \[
+        f_2'' + a_1(x)f_2' + a_2(x)f_2 = 0
+    \]
+    \[
+        (f_1 + f_2)'' + a_1(x)(f_1 + f_2)' + a_2(x)(f_1 + f_2) = 0
+    \]
+    3. Closure under scalar multiplication:
+    \[
+        \lambda (f_1'' + a_1(x)f_1' + a_2(x)f_1) = 0
+    \]
+    \[
+        (\lambda f_1)'' + a_1(x)(\lambda f_1)' + a_2(x)(\lambda  f_1) = 0
+    \]
+}
+
+\subsection{Two important subspaces}
+\begin{enumerate}
+    \item $V \subset V$
+    \item $\{\vec{0}\} \subset V$.
+\end{enumerate}
+\defn{Trivial Subspace}{
+    The \textbf{trivial subspace} of a vector space $V$ is the set $\{0\}$.
+}
+\pf{ Zero is a subset of every vector space:\\
+    1. Non-empty: $\vec{0} \in \{0\}$.\\
+    2. Closure under addition: $\vec{0} + \vec{0} = \vec{0} \in \{0\}$.\\
+    3. Closure under scalar multiplication: $\lambda \vec{0} = \vec{0} \in \{0\}$.\\
+    Therefore, $\{\vec{0}\}$ is a subspace of $V$.
+
+}
+\defn{Improper Subspace}{
+    The \textbf{improper subspace} of a vector space $V$ is the set $V$ itself.
+}
+
+
+
+
+% ------------------------------------------------------------------------------
+\newpage
+\section{Lecture 13: Spanning Set}
+\subsection{Important fact about subspaces}
+\rmk{
+    This lecture covers: 
+    \begin{itemize}
+        \item 4.4 Spanning Sets
+    \end{itemize}
+}
+\rmkb{
+    A linear combination of vectors $v_1, v_2, \cdots, v_n$ is $\vec{v} = c_1\vec{v_1} + c_2\vec{v_2} + \cdots + c_n\vec{v_n}$. 
+}
+\fact{
+    All the $c$ can be zero. 
+}
+\fact{
+    \[
+        \vec{v} = 1 \cdot \vec{v}
+    \]
+    A vector can be a linear combination of itself.
+}
+\fact{
+    Multiplication of matrices:
+    \[
+        A = \begin{bmatrix}
+            \vec{c_1} & \vec{c_2} & \cdots & \vec{c_n}
+        \end{bmatrix}
+    \]
+    \[
+        \vec{A} = \begin{bmatrix}
+            a_1\\
+            a_2\\
+            \vdots\\
+            a_n
+        \end{bmatrix}
+    \]
+    \[
+        A\vec{x} = a_1\vec{c_1} + a_2\vec{c_2} + \cdots + a_n\vec{c_n}
+    \]
+}
+
+Notice $A (\lambda \vec{c})$ = 
+\[
+    \vec{v} = \begin{bmatrix}
+        a_1\\
+        a_2\\
+        \vdots\\
+        a_n
+    \end{bmatrix}
+, \lambda \vec{v} = \begin{bmatrix}
+    \lambda a_1\\
+    \lambda a_2\\
+    \vdots\\
+    \lambda a_n
+\end{bmatrix}
+\]
+\[
+    A(\lambda \vec{v}) = \lambda a_1 \vec{c_1} + \lambda a_2 \vec{c_2} + \cdots + \lambda a_n \vec{c_n}    
+\]
+\[
+    = \lambda (a_1 \vec{c_1} + a_2 \vec{c_2} + \cdots + a_n \vec{c_n})= \lambda A(\vec{v})
+\]
+This is very useful when dealing with null space. 
+\ex{
+    Let \[
+        A = \begin{bmatrix}
+            1 & 2\\
+            3 & 4
+        \end{bmatrix}
+    , \vec{v} = \begin{bmatrix}
+        a\\
+        b
+    \end{bmatrix}
+    \]
+    \[
+        A\vec{v} = 
+        \begin{bmatrix}
+            a + 2b\\
+            3a + 4b
+        \end{bmatrix}
+        = \boxed{a\begin{bmatrix}
+            1\\
+            3
+        \end{bmatrix}
+        + b\begin{bmatrix}
+            2\\
+            4
+        \end{bmatrix}}
+    \]
+
+}
+\subsection{Null Space}
+\defn{Null space}{
+    Let A be an $m \times n$ matrix. The \textbf{null space} of A, denoted by $N(A)$, is the set of all solutions to the homogeneous equation $A\vec{x} = \vec{0}$.
+    \[
+        \text{null}(A) = \{\vec{x} \in \mathbb{R}^n | A\vec{x} = \vec{0}\}
+    \]
+}
+\pf{
+    The null space is a subspace of $\mathbb{R}^n$:
+    \begin{enumerate}
+        \item Non-empty: \\
+        $A \vec{0} = 0\vec{c_1} + 0\vec{c_2} + \cdots + 0\vec{c_n} = \vec{0}$.\\
+        $\vec{0} \in \text{null}(A)$.
+        \item Closure under addition: \\ If $\vec{u}, \vec{v} \in \text{null}(A)$, then $A(\vec{u} + \vec{v}) = A\vec{u} + A\vec{v} = \vec{0} + \vec{0} = \vec{0}$.
+        \item Closure under scalar multiplication: \\If $\vec{u} \in \text{null}(A)$, then $A(\lambda \vec{u}) = \lambda A\vec{u} =  \lambda \vec{0} = \vec{0}$.
+    \end{enumerate}
+}
+
+\ex{
+    Let 
+    \[
+        A = \begin{bmatrix}
+            1 & 2 & 3\\
+            0 & 1 & 2\\
+            0 & 0 & 1
+        \end{bmatrix}
+    \]
+    \[null(A) = \{\vec{x} \in \mathbb{R}^3 | A\vec{x} = \vec{0}\}\]
+    The solution is:
+    \[
+        \begin{bmatrix}
+            1 & 2 & 3\\
+            0 & 1 & 2\\
+            0 & 0 & 1
+        \end{bmatrix}
+        \begin{bmatrix}
+            x_1\\
+            x_2\\
+            x_3
+        \end{bmatrix}
+        =
+        \begin{bmatrix}
+            0\\
+            0\\
+            0
+        \end{bmatrix}
+    \]
+    The system has a unique solution:
+    \[
+        \vec{x} = \begin{bmatrix}
+            0\\
+            0\\
+            0
+        \end{bmatrix}
+    \]
+    The null space of A is the zero vector.
+}
+\newpage
+\ex{
+    Let \[
+        A = \begin{bmatrix}
+            1 & -2 & 0\\
+            0 & 0 & 0\\
+            0 & 0 & 0
+        \end{bmatrix}
+    \] \\
+    \\We have two free variables,
+    let $x_2 = s, x_3 = t$
+    \[
+        \text{null} A = \{(2t,t,s)| s, t \in \mathbb{R}\}
+    \]
+
+    \[
+        = \boxed{\{t(2,1,0) + s(0,0,1) | s, t \in \mathbb{R}\}}
+    \]
+}
+\rmkb{
+    Notice that we can write the definition of the set in terms of the linear combination of the vectors. Every vector in the set can be written as a linear combination of these vectors. We call this the \textbf{spanning set}.
+}
+\subsection{Spanning Set}
+\defn{Spanning Set}{
+    Let $V$ be a vector space and let $S = \{\vec{v_1}, \vec{v_2}, \cdots, \vec{v_n}\}$ be a set of vectors in $V$. The \textbf{span} of $S$, denoted by $\text{span}(S)$, is the set of all linear combinations of the vectors in $S$.
+    \[
+        \text{span}(S) = \{c_1\vec{v_1} + c_2\vec{v_2} + \cdots + c_n\vec{v_n} | c_1, c_2, \cdots, c_n \in \mathbb{R}\}
+    \]
+}
+
+\ex{
+    $\mathbb{R}^2$ is the span of 
+    \[
+        S = \{(1,0), (0,1)\}
+    \]
+    How do we know that:
+    Let (a,b) be in $\mathbb{R}^2$.\\
+    \[
+        (a,b) = a(1,0) + b(0,1)
+    \]
+    Everything in $\mathbb{R}^2$ can be written as a linear combination of (1,0) and (0,1).\\
+    Everything in span of S is in $\mathbb{R}^2$.\\
+    Therefore, $\mathbb{R}^2 = \text{span}(S)$.
+}
+
+\ex{
+    \[
+        M_{2 \times 2}(\mathbb{R}) = \text{span}
+            \begin{Bmatrix}
+                \begin{bmatrix}
+                    1 & 0\\
+                    0 & 0
+                \end{bmatrix},
+                \begin{bmatrix}
+                    0 & 1\\
+                    0 & 0
+                \end{bmatrix},
+                \begin{bmatrix}
+                    0 & 0\\
+                    1 & 0
+                \end{bmatrix},
+                \begin{bmatrix}
+                    0 & 0\\
+                    0 & 1
+                \end{bmatrix}
+            \end{Bmatrix}
+    \]
+}
+
+\fact{
+    For any subset $S$ of $V_1$, the span of the subset is a subspace of the vector space.
+}
+\pf{
+    The span of a subset is a subspace of the vector space.\\
+    Let $S = \{\vec{v_1}, \vec{v_2}, \cdots, \vec{v_n}\}$ be a subset of $V$.\\
+    1. Non-empty: $\vec{0}=0\vec{v_1}$,$\vec{0} \in \text{span}(S)$.\\
+    2. Closure under addition: If $\vec{u}, \vec{v} \in \text{span}(S)$, then 
+    \[
+        \vec{u} = c_1\vec{v_1} + c_2\vec{v_2} + \cdots + c_n\vec{v_n}
+    \]
+    \[
+        \vec{v} = d_1\vec{v_1} + d_2\vec{v_2} + \cdots + d_n\vec{v_n}
+    \]
+    \[
+        \vec{u} + \vec{v} = (c_1 + d_1)\vec{v_1} + (c_2 + d_2)\vec{v_2} + \cdots + (c_n + d_n)\vec{v_n} \in \text{span}(S)
+    \]
+    3. Closure under scalar multiplication: 
+    If $\vec{u} \in \text{span}(S)$, 
+    Let $\lambda \in \mathbb{R}$,
+    \[
+        \lambda \vec{u} = \lambda(c_1\vec{v_1} + c_2\vec{v_2} + \cdots + c_n\vec{v_n}) = (\lambda c_1)\vec{v_1} + (\lambda c_2)\vec{v_2} + \cdots + (\lambda c_n)\vec{v_n} 
+    \]
+    Which is a linear combination of the vectors in $S$.\\
+    \[
+        \lambda \vec{u} \in \text{span}(S)
+    \]
+}
+
+\rmkb{
+    When we have a solution for a homogeneous equation, it turns out to be a spanning set. \\
+    We also use a spanning set for dimension.
+}
+
+\newpage
+\section{Lecture 14: Spanning, Linear Independence \& Basis}
+
+\rmk{
+    This lecture covers: 
+    \begin{itemize}
+        \item 4.5 Linear Dependence and Linear Independence
+        \item 4.6 Basis and Dimension
+    \end{itemize}
+
+}
+
+
+\rmkb{
+    The intuitive meaning of spanning is that if I want to go from point A to point B in the vector land, I can go along the set of vectors to go there. 
+}
+
+
+% \fact{
+%     The span of a non-empty subset of $V$ is always a subset of $V$.
+% }
+
+% \pf{
+%     The span of non-empty subset of $V$ is always a subspace of $V$.\\
+%     Let $S = \{\vec{v_1}, \vec{v_2}, \cdots, \vec{v_n}\}$ be a non-empty subspace of $V$.\\
+%     1. Non-empty: 
+%     \[
+%         \vec{0} = 0\vec{v_1} + 0\vec{v_2} + \cdots + 0\vec{v_n} \in \text{span}(S)
+%     \]
+%     2. Closure under addition:
+%     \[
+%         \vec{u} = c_1\vec{v_1} + c_2\vec{v_2} + \cdots + c_n\vec{v_n}
+%     \]
+%     \[
+%         \vec{v} = d_1\vec{v_1} + d_2\vec{v_2} + \cdots + d_n\vec{v_n}
+%     \]
+%     \[
+%         \vec{u} + \vec{v} = (c_1 + d_1)\vec{v_1} + (c_2 + d_2)\vec{v_2} + \cdots + (c_n + d_n)\vec{v_n} \in \text{span}(S)
+%     \]
+%     3. Closure under scalar multiplication:
+%     \[
+%         \lambda \vec{u} = \lambda(c_1\vec{v_1} + c_2\vec{v_2} + \cdots + c_n\vec{v_n}) = (\lambda c_1)\vec{v_1} + (\lambda c_2)\vec{v_2} + \cdots + (\lambda c_n)\vec{v_n} \in \text{span}(S)
+%     \]
+% }
+
+\subsection{Spanning Set}
+\subsubsection{Using determinant to show a set span of a particular vector space}
+Show a set span of a particular vector space:
+\ex{
+    Let 
+    \[
+        S = \{(1,3),(2,-1)\}, S \subset \mathbb{R}^2
+    \]
+    We want to know is $\mathbb{R}^2 = \text{span}(S)$?
+    Are there scalars $C_1, C_2$ such that any vector in $\mathbb{R}^2$ $\begin{bmatrix}
+        a\\b
+    \end{bmatrix}$can be written as a linear combination of $(1,3)$ and $(2,-1)$?\\
+    If A = $\begin{bmatrix}
+        \vec{c_1} & \vec{c_2} & \cdots & \vec{c_n}
+    \end{bmatrix}$ 
+    If x = $\begin{bmatrix}
+        \lambda_1\\\lambda_2\\ \vdots \\ \lambda_n
+    \end{bmatrix}$\\
+    Then $A\vec{x} = \lambda_1\vec{c_1} + \lambda_2\vec{c_2} + \cdots + \lambda_n\vec{c_n}$\\
+    \[
+        \begin{bmatrix}
+            1 & 2\\
+            3 & -1
+        \end{bmatrix}
+        \begin{bmatrix}
+            \vec{\lambda_1} \\ \vec{\lambda_2}
+        \end{bmatrix}
+        =
+        \begin{bmatrix}
+            a\\b
+        \end{bmatrix}
+    \]
+    Solve:
+    \[
+        \begin{bmatrix}
+            \begin{array}{cc|c}
+                1 & 2 & a\\
+                3 & -1 & b
+            \end{array}
+        \end{bmatrix}
+    \]
+    Is there a solution no matter a, b is?
+    What is the determinant of the matrix?
+    \[
+        \det \begin{bmatrix}
+            1 & 2\\
+            3 & -1
+        \end{bmatrix}
+        = -1-6 = -7 \neq 0
+    \]
+    A solution exists for any a, b.\\
+    Therefore, no matter what a, b I choose in $\mathbb{R}^2$, I can always find $c_1, c_2$ so that a, b is a linear combination of (1,3) and (2,-1).\\
+    Therefore, $\mathbb{R}^2 = \text{span}(S)$.
+}
+
+The idea is to show the determinant of the matrix composed by the given vector is not zero. This means the rank of the matrix equals $n$(Theorem 1.2.2). Therefore, they are able to span the vector space.
+
+\rmkb{
+    The vector of the spanning set became the \textbf{column} vector of the matrix. 
+}
+
+\ex{
+    Show the set $S = \{(1, 0, 0), (1,1,0),(1,1,1)\} $ is a spanning set for $\mathbb{R}^3$.\\
+    Step 1: Write the vectors in the matrix form.\\
+    \[
+        A = \begin{bmatrix}
+            1 & 1 & 1\\
+            0 & 1 & 1\\
+            0 & 0 & 1
+        \end{bmatrix}
+    \]
+    Step 2: Find the determinant of the matrix.\\
+    \[
+        \det A = 1 \neq 0
+    \]
+    Step 3: Therefore, the set $S$ is a spanning set for $\mathbb{R}^3$.\\
+    Which means for any possible $\vec{b} = \begin{bmatrix}
+        a\\b\\c
+    \end{bmatrix}$ there's a unique solution using the linear combination of the given vectors.
+}
+
+\subsubsection{Using the augmented matrix to find the linear combination of the given vectors}
+Now we know how to use the given vector to prove if they are a spanning set for the vector space. We want to know the specific weight constant that brings us to a specific vector in the vector space.
+
+The idea is to stick to the equation $Ax = b$ and find the solution. 
+For example, we want to find the linear combination of the given vectors that gives us a specific vector $\vec{v}$:
+
+\[
+    \vec{v} = \lambda_1\vec{c_1} + \lambda_2\vec{c_2} + \cdots + \lambda_n\vec{c_n}
+\]
+
+Where lambda is the weight constant we want to find and c is the given vectors. We can write this in the matrix form:
+
+\[
+    \begin{bmatrix}
+        \vec{c_1} & \vec{c_2} & \cdots & \vec{c_n}
+    \end{bmatrix}
+    \begin{bmatrix}
+        \lambda_1\\ \lambda_2\\ \vdots \\ \lambda_n
+    \end{bmatrix}
+     = \vec{v}
+\]
+
+We can use the augmented matrix to find $\vec{x}$ (which is the matrix with $\lambda$ here).
+\[
+    \begin{bmatrix}
+        \begin{array}{cccc|c}
+            \vec{c_1} & \vec{c_2} & \cdots & \vec{c_n} & \vec{v}
+        \end{array}
+    \end{bmatrix}
+\]
+
+When we change the matrix into the row echelon form, we are actually solving the equation. The solution is the weight constant we want to find. (I don't know how exactly the question holds during the transformation, but the matrix after transformation means the weight applies to each original vector. )
+% \newpage
+
+\ex{
+    Express $\vec{v} =(1, 3, 7)$ as a linear combination of $(1, 0, 0)$, $(1, 1, 0)$, and $(1, 1, 1)$.\\
+    Step 1: Write the vectors in the matrix form.\\
+    The equation here is $Ax = b$.\\
+    A is the matrix of the given vectors.\\
+    \[
+        A = \begin{bmatrix}
+            1 & 1 & 1\\
+            0 & 1 & 1\\
+            0 & 0 & 1
+        \end{bmatrix}   
+    \]
+    x is the vector of the weights we want to find. $ x = \begin{bmatrix}
+        \lambda_1\\\lambda_2\\\lambda_3
+    \end{bmatrix}
+    $\\
+    b is the vector we want to express. $b = \begin{bmatrix}
+        1\\-3\\7
+    \end{bmatrix}
+    $\\
+
+    So the equation becomes:
+    \[
+        \begin{bmatrix}
+            1 & 1 & 1\\
+            0 & 1 & 1\\
+            0 & 0 & 1
+        \end{bmatrix}
+        \begin{bmatrix}
+            \lambda_1\\\lambda_2\\\lambda_3
+        \end{bmatrix}
+        =
+        \begin{bmatrix}
+            1\\-3\\7
+        \end{bmatrix}
+    \]
+    To solve it, we can write it in the augmented matrix form.\\
+    \[
+        \begin{bmatrix}
+            \begin{array}{ccc|c}
+                1 & 1 & 1 & 1\\
+                0 & 1 & 1 & -3\\
+                0 & 0 & 1 & 7
+            \end{array}
+        \end{bmatrix}
+    \]
+    RREF:
+    \[
+        \begin{bmatrix}
+            \begin{array}{ccc|c}
+                1 & 0 & 0 & 4\\
+                0 & 1 & 0 & -10\\
+                0 & 0 & 1 & 7
+            \end{array}
+        \end{bmatrix}
+    \]
+    This means the first vector times -2, the second vector times -10, and the third vector times 7 will give us the vector we want to express.\\
+    Therefore, $\boxed{\vec{v} = 4(1,0,0) - 10(1,1,0) + 7(1,1,1)}$.
+
+    Let's check if the solution is correct.\\
+    \[
+        \begin{bmatrix}
+            1 & 1 & 1\\
+            0 & 1 & 1\\
+            0 & 0 & 1
+        \end{bmatrix} 
+        \begin{bmatrix}
+            4\\-10\\7
+        \end{bmatrix}
+        =
+        \begin{bmatrix}
+            1\\-3\\7
+        \end{bmatrix}  
+    \]
+    Which is indeed correct.
+}
+
+\newpage
+
+To prove it spans a set, we can also use the same way but make vector b to an arbitrary vector $\begin{bmatrix}
+    a\\b\\\vdots\\n
+\end{bmatrix}$
+
+We can prove the following example does not span $\mathbb{R}^3$ by either showing the determinant of the matrix is zero or showing the augmented matrix is inconsistent when $a,b,c$ are arbitrary. They mean the same. 
+\ex{
+    Determine whether the vectors $S = \{v_1 =(1 , 1, 4), v_2 =(2, 1, 3), v_3 =(4, 3, 5)\}$ span $\mathbb{R}^3$.\\
+    Step 1: Write the vectors in the matrix form.\\
+    The equation here is $Ax = b$.\\
+    A is the matrix of the given vectors.\\
+    \[
+        A = \begin{bmatrix}
+            1 & 2 & 4\\
+            1 & 1 & 3\\
+            4 & 3 & 5
+        \end{bmatrix}
+    \]
+    x is the vector of the weights we want to find. $ x = \begin{bmatrix}
+        \lambda_1\\\lambda_2\\\lambda_3
+    \end{bmatrix}
+    $\\
+    b is the vector we want to express. $b = \begin{bmatrix}
+        a\\b\\c
+    \end{bmatrix}
+    $\\
+    The equation can be written as:
+    \[
+        \begin{bmatrix}
+            1 & 2 & 4\\
+            1 & 1 & 3\\
+            4 & 3 & 5
+        \end{bmatrix}
+        \begin{bmatrix}
+            \lambda_1\\\lambda_2\\\lambda_3
+        \end{bmatrix}
+        =
+        \begin{bmatrix}
+            a\\b\\c
+        \end{bmatrix}
+    \]
+    or
+    \[
+        \begin{bmatrix}
+            \begin{array}{ccc|c}
+                1 & 2 & 4 & a\\
+                1 & 1 & 3 & b\\
+                4 & 3 & 5 & c
+            \end{array}
+        \end{bmatrix}
+    \]
+    REF:
+    \[
+        \begin{bmatrix}
+            \begin{array}{ccc|c}
+                1 & 2 & 4 & a\\
+                0 & 1 & -1 & -(a+b)\\
+                0 & 0 & 0 & 7a+11b+c
+            \end{array}
+        \end{bmatrix}
+    \]
+    Which is inconsistent when $7a+11b+c \neq 0$.\\
+    Therefore, the given vectors are unable to span $\mathbb{R}^3$ since not every arbitrary vector can be expressed as a linear combination of the given vectors. (The vector must meet the requirement that $7a + 11b +c = 0$). 
+}
+
+\rmkb{
+    We can't say that the given vectors only span $\mathbb{R}^3$ if $7a + 11b +c = 0$. The given vectors above span $S = \{(a,b,c) \mid a,b,c \in \mathbb{R}, 7a + 11b +c = 0\}$. However, the definition of  $\mathbb{R}^3$ is $\mathbb{R}^3 = \{(a,b,c) \mid a,b,c \in \mathbb{R}\}$. $S \neq \mathbb{R}^3$. Therefore, the given vectors are unable to span $\mathbb{R}^3$ in any case. 
+}
+
+\subsubsection{Spanning set for the null space}
+\rmkb{
+    Null space is defined as the set of solutions to the homogeneous equation $A\vec{x} = \vec{0}$.\\
+}
+Therefore, what we need to do is to change the vector $\vec{b}$ in the general form to the zero vector. 
+
+\ex{
+    $A = \begin{bmatrix}
+        1 & -2 & 0\\
+        0 & 0 & 0\\
+        0 & 0 & 0
+    \end{bmatrix}$. Find two vectors that span the null space of A.\\
+    \[
+        \begin{bmatrix}
+            \begin{array}{ccc|c}
+                1 & -2 & 0 & 0\\
+                0 & 0 & 0 & 0\\
+                0 & 0 & 0 & 0
+            \end{array}
+        \end{bmatrix}
+    \]
+    This means $1\lambda_1  -2 \lambda_2 = 0$. \\
+    \[\lambda_1 = 2\lambda_2\]
+    \[\lambda_2 = \lambda_2\]
+    \[\lambda_3 = \lambda_3\]
+    Let $\lambda_2 = s, \lambda_3 = t$.
+    \[
+        \text{null}(A) = \{(2s,s,t)| s, t \in \mathbb{R}\}
+    \]
+    This can be also written as:
+    \[
+        \text{null}(A) = \{s(2,1,0) + t(0,0,1)| s, t \in \mathbb{R}\}
+    \]
+    Therefore, the two vectors that span the null space of A are $(2,1,0)$ and $(0,0,1)$.
+
+}
+
+\subsubsection{Spanning set for matrices}
+\ex{
+    Find a spanning set for the subspace of symmetric matrices of $M_{2 \times 2}(\mathbb{R})$.\\
+    The symmetric matrix is the matrix that is equal to its transpose.\\
+    Step 1: Write the generic symmetric matrix in the matrix form.\\
+    \[
+        A = \begin{bmatrix}
+            a & b\\
+            b & c
+        \end{bmatrix}
+    \]
+    Step 2: Change each element in the matrix to 1 (others 0). The set of matrices is the spanning set for the subspace of symmetric matrices.\\
+    \[\boxed{
+        S = \begin{Bmatrix}
+            \begin{bmatrix}
+                1 & 0\\
+                0 & 0
+            \end{bmatrix},
+            \begin{bmatrix}
+                0 & 1\\
+                1 & 0
+            \end{bmatrix},
+            \begin{bmatrix}
+                0 & 0\\
+                0 & 1
+            \end{bmatrix}
+        \end{Bmatrix}}
+    \]
+}
+\rmkb{
+        This is also the way we find the basis for matrices.
+}
+
+\subsubsection{Spanning set for polynomials}
+
+
+
+\ex{
+    Find a spaning set for $P_2$, the polynomial of degree at most 2.\\
+    Step 1: Write the generic $P_2$:
+    \[
+        P_2 = ax^2 + bx + c
+    \]
+    Step 2: Change each element in the polynomial to 1 (others 0). The set of polynomials is the spanning set for $P_2$.\\
+    \[
+        \boxed{        
+            S = \{1, x, x^2\}
+        }    
+    \]
+}
+
+Now we know how to: 
+\begin{itemize}
+    \item Show a set span of a particular vector space.
+    \item Find the linear combination of the given spanning set.
+    \item Find the spanning set for the null space.
+    \item Find the spanning set for matrices.
+    \item Find the spanning set for polynomials.
+\end{itemize}
+
+\newpage
+\subsection{Linear Independence}
+
+Let $S = \{(1,0), (0,1), (1,3)\} \subset \mathbb{R}^2$. Find span(S)\\
+    \[
+        \boxed{
+        \text{span}(S) = \{(1,0),(0,1)\}
+        }
+    \]
+    Did we need the (1, 3)? It turns out that we would like a minimal spanning set for V . So we formalize the notion of an ‘extra’ or ‘redundant’ vector. 
+
+\defn{Linear Independence}{
+    Let $V$ be a vector space and let $S = \{\vec{v_1}, \vec{v_2}, \cdots, \vec{v_n}\}$ be a set of vectors in $V$. The set $S$ is \textbf{linearly independent} if the only solution to the equation
+    \[
+        c_1\vec{v_1} + c_2\vec{v_2} + \cdots + c_n\vec{v_n} = \vec{0}
+    \]
+    is $c_1 = c_2 = \cdots = c_n = 0$.\\
+    If there exists a solution where at least one of the $c$ is not zero, then the set is \textbf{linearly dependent}.
+}
+
+\ex{
+    The set $S = \{(1,0), (0,1), (1,3)\} \subset \mathbb{R}^2$ is linearly dependent because:
+    \[
+        1 \cdot (1,0) + 3 \cdot (0,1) - 1 \cdot (1,3) = (0,0)
+    \]
+    and the coefficients $1, 3, -1$ are not all zero.
+}
+
+\fact{
+    An equivalent definition would be that V is linearly independent if and only if no vector in S can be expressed as a linear combination of the others. That is, no vector is a member of the span of the other vectors.
+}
+
+\ex{
+    Dependent: $\{(1, 0), (2, 0)\}. \\  2 \cdot (1, 0) = (2, 0)$, so $(2, 0)$ is in the span of $\{(1, 0)\}$. \\
+    Independent: $ \{(1, 0), (2, 1)\}$. \\  If $(2 , 1)$ is in the span of $\{(1, 0)\}$, it must be a scalar multiple of $(1, 0)$, which it is not.
+
+}
+
+\ex{
+    Let $S = \{(1, 0, 0, 0), (1, 2, 0, 0), (1, 2, 3, 0), (1, 2, 3, 4)\} \subset \mathbb{R}^4$. Determine whether or not $S$ is linearly dependent. Then determine whether or not $S$ is a spanning set for $\mathbb{R}^4$.\\
+    Step 1: Write the vectors in the matrix form.\\
+    \[
+        A = \begin{bmatrix}
+            1 & 1 & 1 & 1\\
+            0 & 2 & 2 & 2\\
+            0 & 0 & 3 & 3\\
+            0 & 0 & 0 & 4
+        \end{bmatrix}
+    \]
+    Step 2: Find the RREF
+    \[
+        \begin{bmatrix}
+            1 & 0 & 0 & 0\\
+            0 & 1 & 0 & 0\\
+            0 & 0 & 1 & 0\\
+            0 & 0 & 0 & 1
+        \end{bmatrix}
+    \]
+    Step 3: Find the determinant of the matrix.\\
+    \[
+        \det A = 1 \neq 0
+    \]
+    Therefore, the set $S$ is linearly independent.\\
+}
+\rmkb{
+    \begin{itemize}
+        \item The determinant will only work in square matrices.
+        \item A linearly independent spanning set is called a \textbf{basis}.
+    \end{itemize}
+}
+
+\textbf{Technique:} If S is a subset of $\mathbb{R}^n$, then S is linearly independent if and only if the matrix A whose column vectors are the elements of S has a unique solution for $A\vec{x} = \vec{0}$. If this is true and also S has n vectors, then it spans $\mathbb{R}^n$.
+
+
+\newpage
+\section{Lecture 15: Linear Independence \& Basis and dimension}
+\rmk{
+    This lecture covers: 
+    \begin{itemize}
+        \item 4.5 Linear Dependence and Linear Independence
+        \item 4.6 Basis and Dimension
+    \end{itemize}
+
+}
+
+\subsection{More properties of Linear Independence}
+
+\fact{
+    Let $V$ be a vector space, any set of two vectors is linearly dependent if and only if one is a scalar multiple of the other.
+}
+
+\fact{
+    If set $S$ contains the zero vector, then $S$ is linearly dependent.\
+}
+
+
+\fact{
+    Any $S$ with only one vector is linearly independent if and only if that vector is not the zero vector.
+}
+
+\cor{
+    If $S$ is dependent, it contains an independent subset L that has the same linear span as $S$.
+}
+To find L, start with $v_1$, and add another element from $S$ as long as the resulting set is linearly independent.
+If the last vector you added made the set dependent, remove it and proceed to the next vector. Stop when
+you have exhausted all the elements of $S$. The set you have obtained is linearly independent and has the same
+span as $S$.
+
+\ex{
+    \[
+        S = \begin{Bmatrix}
+            \vec{v}_1 = \begin{bmatrix}
+                1\\0\\1
+            \end{bmatrix}
+            , \vec{v}_2 = \begin{bmatrix}
+                2\\0\\0
+            \end{bmatrix}
+            , \vec{v}_3 = \begin{bmatrix}
+                -1\\0\\1
+            \end{bmatrix}
+            , \vec{v}_4 = \begin{bmatrix}
+                2\\3\\1
+            \end{bmatrix}
+        \end{Bmatrix}
+    \]
+    Find a linearly independent subset of $S$ that spans the same subspace as $S$.\\
+    Add the first vector to the subset.\\
+    \[
+        L = \begin{Bmatrix}
+            \begin{bmatrix}
+                1\\0\\1
+            \end{bmatrix}
+        \end{Bmatrix}
+    \]
+    Add the second vector to the subset.\\
+    \[
+        L = \begin{Bmatrix}
+            \begin{bmatrix}
+                1\\0\\1
+            \end{bmatrix},
+            \begin{bmatrix}
+                2\\0\\0
+            \end{bmatrix}
+        \end{Bmatrix}
+    \]
+    Check if the third vector can be expressed by the linear combination of the first two vectors.\\
+    \[
+        \begin{bmatrix}
+            -1\\0\\1
+        \end{bmatrix}
+        = a\begin{bmatrix}
+            1\\0\\1
+        \end{bmatrix}
+        + b\begin{bmatrix}
+            2\\0\\0
+        \end{bmatrix}
+    \]
+    \[
+        a = 1, b = -1
+    \]
+    Therefore, we do not add the third vector to the subset.\\
+    Check if the fourth vector can be expressed by the linear combination of the first two vectors.\\
+    \[
+        \begin{bmatrix}
+            2\\3\\1
+        \end{bmatrix}
+        = a\begin{bmatrix}
+            1\\0\\1
+        \end{bmatrix}
+        + b\begin{bmatrix}
+            2\\0\\0
+        \end{bmatrix}
+    \]
+    Since the second element of the fourth vector is not zero, we can't express the fourth vector by the linear combination of the first two vectors. So we add it to our subset.\\
+    \[
+        \boxed{L = \begin{Bmatrix}
+            \begin{bmatrix}
+                1\\0\\1
+            \end{bmatrix},
+            \begin{bmatrix}
+                2\\0\\0
+            \end{bmatrix},
+            \begin{bmatrix}
+                2\\3\\1
+            \end{bmatrix}
+        \end{Bmatrix}}
+    \]
+
+}
+
+\rmkb{
+    \begin{itemize}
+        \item A set $S$ that spans a vector space $V$ may or may not be linearly independent. 
+        \item A linearly independent subset $S$ of a vector space $V$ may or may not span $V$.
+    \end{itemize}
+}
+
+Suppose we have a set of vectors
+
+\[
+    S = \{v_1 = (1, 2, 3), v_2 = (4, 5, 6), v_3 = (7, 8, 9)\}.
+\]
+
+To check if it \textbf{span} $\mathbb{R}^3$, we use the following matrix:
+\[
+    \begin{bmatrix}
+        1 & 4 & 7\\
+        2 & 5 & 8\\
+        3 & 6 & 9
+    \end{bmatrix}
+    \begin{bmatrix}
+        \lambda_1\\ \lambda_2\\ \lambda_3
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        a\\b\\c
+    \end{bmatrix}
+\]
+Here, we are interested if the augmented matrix is consistent after row reduction, or if its determinant is not zero.
+
+To check if it is \textbf{linearly independent}, we use the following matrix:
+\[
+    \begin{bmatrix}
+        1 & 4 & 7\\
+        2 & 5 & 8\\
+        3 & 6 & 9
+    \end{bmatrix}
+    \begin{bmatrix}
+        \lambda_1\\ \lambda_2\\ \lambda_3
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        0\\0\\0
+    \end{bmatrix}
+\]
+Here, we are interested in the number of solutions of the augmented matrix.
+
+% For checking the span, we see if the augmented matrix is consistent after row reduction, or if its determinant is not zero.  
+
+% \[
+%     \begin{bmatrix}
+%         \begin{array}{ccc|c}
+%             1 & 4 & 7 & a\\
+%             2 & 5 & 8 & b\\
+%             3 & 6 & 9 & c
+%         \end{array}
+%     \end{bmatrix}
+%     = 
+%     \begin{bmatrix}
+%         \begin{array}{ccc|c}
+%             1 & 0 & -1 & x + \frac{4}{3}(y-2x)\\
+%             0 & 1 & 2 & - \frac{1}{3} (y - 2x)\\
+%             0 & 0 & 0 & z - 3x -3(y-2x)
+%         \end{array}
+%     \end{bmatrix}
+% \]
+% We can tell that the set is linearly dependent because the augmented matrix is inconsistent when $z - 3x -3(y-2x) \neq 0$. On the other hand, we can get the equation:
+% \[
+%     \lambda_1 = x + \frac{4}{3}(y-2x) = \frac{4}{3}y - \frac{5}{3}x
+% \]
+% \[
+%     \lambda_2 = - \frac{1}{3} (y - 2x) = \frac{2}{3}x - \frac{1}{3}y
+% \]
+% \[
+%     \lambda_3 = z - 3x -3(y-2x) = z - 3y + 3x
+% \]
+% We can write $v_3$ as a linear combination of $v_1$ and $v_2$:
+% \[
+%     v_3 = \frac{4}{3}v_1 - \frac{5}{3}v_2
+% \]
+
+
+
+% For checking the linear independence, we row reduce the matrix and find the solution for $\vec{b}$.
+
+Now let's find the determinant of the matrix:
+\[
+    \det(A) = \begin{vmatrix}
+        1 & 4 & 7\\
+        2 & 5 & 8\\
+        3 & 6 & 9
+    \end{vmatrix}
+    = 
+    0
+\]
+
+If the determinant is zero, we know; 
+\begin{itemize}
+    \item The number of solutions is infinite. That means we have more than 1 solution for the matrix $A\vec{x} = \vec{0}$. Therefore, $S$ is linearly dependent.
+    \item The system may not be consistent for arbitrary x, y, z. Therefore it does not span $\mathbb{R}^3$.
+\end{itemize}
+
+
+\[
+    \begin{bmatrix}
+        \begin{array}{ccc|c}
+            1 & 4 & 7 & x\\
+            2 & 5 & 8 & y\\
+            3 & 6 & 9 & z
+        \end{array}
+    \end{bmatrix}
+    = 
+    \begin{bmatrix}
+        \begin{array}{ccc|c}
+            1 & 4 & 7 & x\\
+            0 & 1 & 2 & - \frac{1}{3} (y - 2x)\\
+            0 & 0 & 0 & z + x -2y
+        \end{array}
+    \end{bmatrix}
+\]
+That means $S$ does not span $\mathbb{R}^3$.
+
+Infact, if we want to express $\vec{v_3}$ as a linear combination of $\vec{v_1}$ and $\vec{v_2}$, we can write:
+\[
+    \begin{bmatrix}
+        7 \\ 8 \\ 9
+    \end{bmatrix}
+    = a \begin{bmatrix}
+        1 \\ 2 \\ 3
+    \end{bmatrix}
+    + b \begin{bmatrix}
+        4 \\ 5 \\ 6
+    \end{bmatrix}
+\]
+\[
+    A\vec{x} = \vec{b}
+\]
+
+\[
+    \begin{bmatrix}
+        1 & 4 \\
+        2 & 5 \\
+        3 & 6 
+    \end{bmatrix}
+    \begin{bmatrix}
+        a \\ b
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        7 \\ 8 \\ 9
+    \end{bmatrix}
+\]
+
+\[
+    \begin{bmatrix}
+        \begin{array}{cc|c}
+            1 & 4 & 7\\
+            2 & 5 & 8
+        \end{array}
+    \end{bmatrix}
+    = 
+    \begin{bmatrix}
+        \begin{array}{cc|c}
+            1 & 0 & -1\\
+            0 & 1 & 2
+        \end{array}
+    \end{bmatrix}
+\]
+\[
+    a = -1, b = 2
+\]
+
+\subsubsection{Independence and function spaces}
+The \textbf{Wronskian} is the determinant of a particular matrix function. It is used to determine whether a set of functions is linearly independent.
+
+\defn{Wronskian}{
+    Let $f_1, f_2, \cdots, f_n$ be functions defined on an interval $I$. The \textbf{Wronskian} of the functions is the determinant of the matrix
+    \[
+        W(f_1, f_2, \cdots, f_n) = \begin{vmatrix}
+            f_1 & f_2 & \cdots & f_n\\
+            f_1' & f_2' & \cdots & f_n'\\
+            \vdots & \vdots & \ddots & \vdots\\
+            f_1^{(n-1)} & f_2^{(n-1)} & \cdots & f_n^{(n-1)}
+        \end{vmatrix}
+    \]
+    where $f^{(k)}$ denotes the $k$th derivative of $f$.
+
+    The functions $f_1, f_2, \cdots, f_n$ are linearly independent on $I$ if and only if $W(f_1, f_2, \cdots, f_n) \neq 0$ for some $x \in I$.
+}
+
+\ex{
+    Show that $\{e^x, \sin(x),x\} $ is linearly independent on $[-1,1]$.
+    \[
+        W(e^x, \sin(x), x) = \begin{vmatrix}
+            e^x & \sin(x) & x\\
+            e^x & \cos(x) & 1\\
+            e^x & -\sin(x) & 0
+        \end{vmatrix}
+    \]
+    \[
+        = e^x \begin{vmatrix}
+            \cos(x) & 1\\
+            -\sin(x) & 0
+        \end{vmatrix}
+        + 
+        e^x \begin{vmatrix}
+            \sin(x) & x\\
+            -\sin(x) & 0
+        \end{vmatrix}
+        +
+        e^x \begin{vmatrix}
+            \sin(x) & x\\
+            \cos(x) & 1
+        \end{vmatrix}
+    \]
+    We only need to find one number to work to make it non-zero. 
+    So we take pure guess: let x be $\frac{\pi}{2}$
+    \[
+        = e^{\frac{\pi}{2}} (1 + 1 = \frac{\pi}{2}) \boxed{\neq 0}
+    \]
+    So they are independent. 
+}
+\fact{
+    If for any $x \in I$, the Wronskian of a set of functions is zero, we can't conclude that the functions are dependent. The test failed and we need to try something else. 
+}
+
+\ex{
+    Show that $\{t^n,t^m\} $ is linearly independent on $\mathbb{R}$ if $n \neq m$.\\
+    \[
+        W(t^n, t^m) = \begin{vmatrix}
+            t^n & t^m\\
+            nt^{n-1} & mt^{m-1}
+        \end{vmatrix}
+        = t^{n+m-1} (m-n) 
+    \]
+    Let's try t = 1:
+    \[
+        \boxed{W(1,1) = 1 \neq 0}
+    \]
+    Therefore, they are independent.
+}
+
+\subsection{Basis and Dimension}
+
+\defn{Basis}{
+    A set of vectors $S = \{\vec{v_1}, \vec{v_2}, \cdots, \vec{v_n}\}$ is a \textbf{basis} for a vector space $V$ if:
+    \begin{itemize}
+        \item $S$ spans $V$.
+        \item $S$ is linearly independent.
+    \end{itemize}
+}
+\ex{
+    The set $S = \{(1,0), (0,1)\}$ is a basis for $\mathbb{R}^2$.
+}
+\ex{
+    The set $S = \{(1,0), (0,1), (1,3)\}$ is not a basis for $\mathbb{R}^2$.
+}
+\ex{
+    The set $S = \{x^2,x+1,3\}$ is a basis for $P_2(\mathbb{R})$ (Check spanning, then use the Wronskian for independence.)\\
+    Span:
+    \[
+        P(x) = ax^2 + bx + c
+    \]
+    \[
+        \begin{bmatrix}
+            1 & 0 & 0\\
+            0 & 1 & 1\\
+            0 & 0 & 3
+        \end{bmatrix}
+        \begin{bmatrix}
+            \lambda_1\\ \lambda_2\\ \lambda_3
+        \end{bmatrix}
+        =
+        \begin{bmatrix}
+            a\\b\\c
+        \end{bmatrix}
+    \]
+    \[\boxed{\det(A) = 3 \neq 0}\]
+    Therefore, there is a solution for any arbitrary $a,b,c$. So it spans $P_2(\mathbb{R})$.\\
+    Independence:
+    \[
+        W(x^2, x+1, 3) = \begin{vmatrix}
+            x^2 & x+1 & 3\\
+            2x & 1 & 0\\
+            2 & 0 & 0
+        \end{vmatrix}
+        = 2x^2 - 2x - 3
+    \]
+    Let's try x = 1:
+    \[
+        \boxed{W(1,2,3) = -3 \neq 0}
+    \]
+    Therefore, they are independent.\\
+    Therefore, the set $S = \{x^2,x+1,3\}$ is a basis for $P_2(\mathbb{R})$.
+}
+\thmr{}{}{
+    All bases for a finite-dimensional vector space V have the same number of elements.\\ Definition: This number is called the \textbf{dimension} of the vector space and is written $\dim(V)$.
+}
+
+\defn{Dimeansion}{
+    The \textbf{dimension} of a vector space $V$ is the number of vectors in a basis for $V$. 
+}
+\ex{
+    What is the dimension of $\mathbb{R}^3$? Of $\mathbb{R}^n$?\\
+    The basis for $\mathbb{R}^3$ is $\{(1,0,0), (0,1,0), (0,0,1)\}$. Therefore, the dimension of $\mathbb{R}^3$ is 3.\\
+    The basis for $\mathbb{R}^n$ is $\{(1,0,0,\cdots,0), (0,1,0,\cdots,0), (0,0,1,\cdots,0), \cdots, (0,0,0,\cdots,1)\}$. Therefore, the dimension of $\mathbb{R}^n$ is n.\\
+}
+
+\ex{
+    What is the dimension of $P_3(\mathbb{R})$? Of $P_n(\mathbb{R})$?\\
+    The basis for $P_3(\mathbb{R})$ is $\{1, x, x^2, x^3\}$. Therefore, the dimension of $P_3(\mathbb{R})$ is 4.\\
+    The basis for $P_n(\mathbb{R})$ is $\{1, x, x^2, \cdots, x^n\}$. Therefore, the dimension of $P_n(\mathbb{R})$ is n+1.\\
+}
+
+\ex{
+    What is the dimension of $M_{2 \times 2}(\mathbb{R})$? Of $M_{n \times n}(\mathbb{R})$?\\
+    The basis for $M_{2 \times 2}(\mathbb{R})$ is $\{E_{11}, E_{12}, E_{21}, E_{22}\}$ where $E_{ij}$ is the matrix with 1 in the $i$th row and $j$th column and 0 elsewhere. Therefore, the dimension of $M_{2 \times 2}(\mathbb{R})$ is 4.\\
+    The basis for $M_{n \times n}(\mathbb{R})$ is $\{E_{11}, E_{12}, \cdots, E_{1n}, E_{21}, E_{22}, \cdots, E_{2n}, \cdots, E_{n1}, E_{n2}, \cdots, E_{nn}\}$. Therefore, the dimension of $M_{n \times n}(\mathbb{R})$ is $n^2$.
+}
+
+\subsubsection{Important Fact about Basis}
+1. Dimension and Spanning:
+\fact{
+    Every spanning set $S$ of a vector space $V$ has \textbf{at least}  $\dim(V)$ elements.
+}
+2. Dimension and Linear Independence:
+\fact{
+    Every linearly independent set $S$ of a vector space $V$ has \textbf{at most} $\dim(V)$ elements.
+}
+3. Basis
+\fact{
+    A \textbf{spanning set} is a basis if and only if it has percisely $\dim(V)$ elements.\\
+    A \textbf{linearly independent set} is a basis if and only if it has precisely $\dim(V)$ elements.
+}
+
+\rmkb{
+    \textbf{If a set has too few vectors, it does not span. If it has too many, it is not independent.}
+}
+
+\cor{
+    If a subset $S$ of a (finite-dimensional) vector space $V$ has any two of these three properties:
+    \begin{itemize}
+        \item $S$ spans $V$.
+        \item $S$ is linearly independent.
+        \item $S$ has $\dim(V)$ elements.
+    \end{itemize}
+    then it has all three and we have a basis. 
+}
+For each of the following subsets S of famous vector spaces V , find an immediate reason why S is not a basis for V.\\
+
+\ex{
+    1. $S = \begin{Bmatrix}
+        \begin{bmatrix}
+            1 & 0\\2 & 7
+        \end{bmatrix}
+        ,
+        \begin{bmatrix}
+            0 & 0\\0 & 0
+        \end{bmatrix}
+        ,
+        \begin{bmatrix}
+            2 & 3\\-1 & 0
+        \end{bmatrix}
+        ,
+        \begin{bmatrix}
+            0 & 1\\-2 & 3
+        \end{bmatrix}
+    \end{Bmatrix}$
+    
+    Reason: The second vector is the zero vector, so it is not linearly independent. Therefore, it is not a basis.
+}
+\ex{
+    2. $S = \{(1,2,3),(2,5,7)\}$
+    
+    Reason: The set has only two vectors, so it can't span $\mathbb{R}^3$. Therefore, it is not a basis.
+}
+
+\ex{
+    3. $S = \{x^2 + 1, 2x -6, 4, x+1\}, V = P_2$
+    
+    Reason: The set has four vectors, so it is not linearly independent. Therefore, it is not a basis.
+}
+
+
+
+
+\newpage
+\section{Lecture 16: Row and Columns Spaces}
+
+\rmk{
+    This lecture covers: 
+    \begin{itemize}
+        \item 4.8 The Row Space and Column Space
+    \end{itemize}
+    I combine the basis part in the previous section and the rank nullity theorem to the next section.
+}
+
+\subsection{Colomn Space}
+\defn{Colomn Space}{
+    The \textbf{column space} of a matrix $A$ is the set of all linear combinations of the columns of $A$. It is denoted by $\text{Col}(A)$.
+}
+
+For matrix $A = M_{m \times n}$, the column space is a subspace of $\mathbb{R}^m$. This is because, for each column vector, we have $m$ elements.
+
+\ex{
+    Let $A = \begin{bmatrix}
+        1 & 0\\
+        0 & 1\\
+        1 & 1
+    \end{bmatrix}
+    $. Find the column space of $A$.\\
+    The column space is the span of the column vectors, that is:
+    \[
+        \text{Col}(A) = \text{span}\{(1,0,1), (0,1,1)\}
+    \]
+}
+
+\subsubsection{Basis of Column Space}
+\fact{
+    The basis of the column space of a matrix $A$ is the set of pivot columns of $A$.
+}
+\rmkb{
+
+
+    \begin{itemize}
+        \item     If A and E are row-equivalent, then the dependency relationships between the columns are exactly the same. So any set of independent columns in the reduced row-echelon form E of A will correspond to an independent set of columns in A.
+        \item     The column space of A will NOT necessarily equal the column space of E. They will both be subspaces of Rm of the same dimension.
+        \item     Technique: Find E, a row-echelon form for A. The columns of E with leading ones indicate which columns of A form a basis. That is, the columns of A corresponding to columns of E containing a leading 1 constitute a basis for the column space of A.
+    \end{itemize}
+}
+\newpage
+
+\ex{
+    1. Find Colomn Space:\\\\
+    Let $A = \begin{bmatrix}
+        1 & 2 & 3\\
+        4 & 5 & 6\\
+        7 & 8 & 9
+    \end{bmatrix}
+    $. Find a reduced row echelon form E for A. Determine a basis for the column space of
+    $A$.\\
+    RREF:
+    \[
+        \begin{bmatrix}
+            1 & 0 & -1\\
+            0 & 1 & 2\\
+            0 & 0 & 0
+        \end{bmatrix}   
+    \]
+    Notice that the pivot columns are the first two columns of A. Therefore, the basis for the column space of A is $\{(1,4,7), (2,5,8)\}$. \\\\
+    2. In E, write the third column as a linear combination of the first two columns: \\
+    3. Show that the same coefficients can be used to write the third column of A as a linear combination of the first two columns of A:
+
+    \[
+        \vec{c_3} = \lambda_1 \vec{c_1} + \lambda_2 \vec{c_2}
+    \]
+    \[
+        \begin{bmatrix}
+            1 & 2\\
+            4 & 5\\
+            7 & 8
+        \end{bmatrix}
+        \begin{bmatrix}
+            \lambda_1\\ \lambda_2
+        \end{bmatrix}
+        =
+        \begin{bmatrix}
+            3\\6\\9
+        \end{bmatrix}
+    \]
+    \[
+        \begin{bmatrix}
+            \begin{array}{cc|c}
+                1 & 2 & 3\\
+                4 & 5 & 6
+            \end{array}
+        \end{bmatrix}
+        =
+        \begin{bmatrix}
+            \begin{array}{cc|c}
+                1 & 0 & -1\\
+                0 & 1 & 2
+            \end{array}
+        \end{bmatrix}
+    \]
+    Therefore, $\vec{c_3} = -\vec{c_1} + 2\vec{c_2}$. We substitute $\vec{c_1}$ and $\vec{c_2}$ with the column vectors of $A$ to get:
+    \[
+        \boxed{\vec{c_3} = \begin{bmatrix}
+            3\\6\\9
+        \end{bmatrix}
+        =
+        - \begin{bmatrix}
+            1\\4\\7
+        \end{bmatrix}
+        +
+        2 \begin{bmatrix}
+            2\\5\\8
+        \end{bmatrix}  }
+    \]
+
+
+}
+
+
+\fact{
+    $\dim(\text{column space}(A) = \text{rank}(A)$
+}
+\pf{
+    The rank of a matrix is the number of pivot columns in its reduced row echelon form. The pivot columns form a basis for the column space of the matrix. Therefore, the dimension of the column space is the rank of the matrix.
+}
+
+
+
+
+
+
+
+
+
+
+\newpage
+\subsection{Row Space}
+\defn{Row Space}{
+    The \textbf{row space} of a matrix $A$ is the set of all linear combinations of the rows of $A$. It is denoted by $\text{Row}(A)$.
+}
+\ex{
+    Let $A = \begin{bmatrix}
+        1 & 1 & 1 & 1 \\
+        1 & 1 & 0 & -1 \\
+        1 & 1 & 2 & 3
+    \end{bmatrix}$.
+
+    The RREF of A is:
+    \[
+        \begin{bmatrix}
+            1 & 1 & 0 & -1\\
+            0 & 0 & 1 & 2\\
+            0 & 0 & 0 & 0
+        \end{bmatrix}
+    \]
+    The pivot rows are the first and third rows of A. \\
+    The basis of the column space is $\{(1,1,1,0), (1,0,2,0)\}$.\\
+    Therefore, the basis of the row space is $\{(1,1,1,1), (0,0,1,2)\}$.
+}
+
+\rmkb{
+    Note that the dimension of row space and column space is the same. However, they are not the same space. 
+}
+
+\fact{
+    The row space of a matrix $A$ is the column space of the transpose of $A$.
+}
+
+
+\newpage
+\section{Lecture 17: The Rank-Nullity Theorem}
+\rmk{
+    This lecture covers: 
+    \begin{itemize}
+        \item 4.9 The Rank-Nullity Theorem
+    \end{itemize}
+}
+
+
+
+\subsection{Rank-Nullity Theorem}
+\defn{Rank-Nullity Theorem}{
+    The \textbf{nullity} of a matrix $A$ is the dimension of the null space of $A$: \\
+    \[
+        \text{nullity}(A) = \dim(\text{null space}(A))
+    \]
+}
+
+\fact{
+    The rank of a matrix $A$ plus the nullity of $A$ equals the number of columns of $A$:
+    \[
+        \text{rank}(A) + \text{nullity}(A) = n
+    \]
+}
+
+\ex{
+    Find the nullity of: \\
+    \[
+        A = \begin{bmatrix}
+            1 & 2 & 3 & 4\\
+            0 & 1 & 2 & 3\\
+            1 & 3 & 5 & 7
+        \end{bmatrix}
+    \]
+
+    The RREF of A is:
+    \[
+        \begin{bmatrix}
+            1 & 0 & -1 & -2\\
+            0 & 1 & 2 & 3\\
+            0 & 0 & 0 & 0
+        \end{bmatrix}
+    \]
+    The null space of A is the set of all solutions to $A\vec{x} = \vec{0}$. The null space is spanned by the free variables, which are the third and fourth columns of the RREF. Therefore, the null space is spanned by $\{(1,-2,1,0), (2,-3,0,1)\}$. The nullity of A is 2.
+
+    The rank of A is 2. Therefore, the rank-nullity theorem holds:
+    \[
+        \boxed{2 + 2 = 4}
+    \]
+}
+
+\rmkb{
+    \[
+        \dim(\text{null}(A)) + \text{one of} \begin{Bmatrix}
+            \text{rank}(A)\\
+            \dim(\text{colspace}(A))\\
+            \dim(\text{rowspace}(A))
+        \end{Bmatrix}
+        = n (\text{the number of columns of A})
+    \]
+}
+
+
+\ex{
+    Show that a $3 \times 7$ matrix whose nullity is 4 must have a column space that is $\mathbb{R}^3$. What can we say about its rowspace?\\\\
+    The rank-nullity theorem states that the rank of a matrix plus its nullity equals the number of columns of the matrix. Therefore, the rank of the matrix is $7 - 4 = 3$. Since the rank of the matrix is 3, the column space of the matrix is $\mathbb{R}^3$. The rowspace of the matrix is also $\mathbb{R}^3$ because the rowspace is the column space of the transpose of the matrix.
+
+}
+
+\ex{
+    True or False? An $m\times× n$ matrix must have a nullity that is at least $\mid m - n \mid$.\\\\
+    % According to the rank nullity theorem, the nullity = number of columns $-$ rank. The statement can be translated to "The rank of the matrix must be at least $\min(m,n)$". However, rank is the number of pivot columns in the RREF of the matrix. The matrix we mentioned does not necessarily have to have a rank of $\min(m,n)$. So rank can be less than $\min(m,n)$. However, here we are looking for the least nullity, which is given by the max rank. The max rank is $\min(m,n)$. Therefore, the statement is \textbf{True}.
+    False: we do not add another column. 
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+% ------------------------------------------------------------------------------
+\newpage
+\chapter{Office Hour Notes}
+\section{3/28}
+\subsection{Span and independent}
+Span:
+\ex{
+    \[
+        \begin{bmatrix}
+            \begin{array}{ccc|c}
+                1 & 2 & 3 & x\\
+                4 & 5 & 6 & y\\
+                7 & 8 & 9 & z
+            \end{array}
+        \end{bmatrix}
+    \]
+    \textbf{Does it span $\mathbb{R}^3$?} \\
+    REF:
+    \[
+        \begin{bmatrix}
+            \begin{array}{ccc|c}
+                1 & 2 & 3 & x\\
+            0 & -3 & -6 & y-4x\\
+            0 & 0 & 0 & z+x-2y
+            \end{array}
+        \end{bmatrix}
+    \]
+    The augmented matrix only be consistent when $z+x-2y = 0$. Therefore, it does not span $\mathbb{R}^3$.\\
+    However, it does span $S=\{x,y,z|z+x-2y = 0 \}$ which is a subspace of $\mathbb{R}^3$.
+}
+\\
+Infinite dimensional matrix:
+\ex{
+    \[
+        P(\mathbb{R}) = \text{all polynomials}
+    \] 
+    \[
+        \beta = \{1, x, x^2, x^3, \cdots \}
+    \]
+}
+
+\end{document}
